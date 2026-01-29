@@ -49,23 +49,31 @@ function parseProxyUri(uri: string): string {
         continue;
       }
 
-      const url = new URL(trimmedUri);
-      const protocol = url.protocol.replace(':', '');
-      const name = decodeURIComponent(url.hash.substring(1)) || `${protocol.toUpperCase()}-Proxy`;
-      const hostname = url.hostname;
-      const port = url.port || '443';
-      const password = decodeURIComponent(url.username || url.password || url.searchParams.get('auth') || '');
+    let uriToParse = trimmedUri;
+    // Handle port ranges in URIs (e.g. :20000-40000) which break the URL constructor
+    const portRangeMatch = trimmedUri.match(/:(\d+-\d+)([\?#]|$)/);
+    if (portRangeMatch) {
+      uriToParse = trimmedUri.replace(portRangeMatch[1], '443');
+    }
 
-      if (protocol === 'hysteria2') {
-        const sni = url.searchParams.get('sni') || hostname;
-        const skipCertVerify = url.searchParams.get('insecure') === '1' || url.searchParams.get('insecure') === 'true';
-        const alpn = url.searchParams.get('alpn')?.split(',') || ['h3'];
-        const ports = url.searchParams.get('mport') || url.searchParams.get('ports') || '';
-        const udp = url.searchParams.get('udp') !== 'false';
-        const obfs = url.searchParams.get('obfs') || '';
-        const obfsPassword = url.searchParams.get('obfs-password') || '';
+    const url = new URL(uriToParse);
+    const protocol = url.protocol.replace(':', '');
+    const name = decodeURIComponent(url.hash.substring(1)) || `${protocol.toUpperCase()}-Proxy`;
+    const hostname = url.hostname;
+    // Use the captured port range if it existed, otherwise fallback to url.port or default
+    const port = portRangeMatch ? portRangeMatch[1] : (url.port || (protocol === 'vmess' ? '80' : '443'));
+    const password = decodeURIComponent(url.username || url.password || url.searchParams.get('auth') || '');
 
-        yamlResult += `  - name: ${name}
+    if (protocol === 'hysteria2') {
+      const sni = url.searchParams.get('sni') || hostname;
+      const skipCertVerify = url.searchParams.get('insecure') === '1' || url.searchParams.get('insecure') === 'true';
+      const alpn = url.searchParams.get('alpn')?.split(',') || ['h3'];
+      const ports = url.searchParams.get('mport') || url.searchParams.get('ports') || port;
+      const udp = url.searchParams.get('udp') !== 'false';
+      const obfs = url.searchParams.get('obfs') || '';
+      const obfsPassword = url.searchParams.get('obfs-password') || '';
+
+      yamlResult += `  - name: ${name}
     type: hysteria2
     server: ${hostname}
     port: ${port}
@@ -198,6 +206,12 @@ export default {
              const vmessData = JSON.parse(atob(line.replace('vmess://', '')));
              customProxyNames.push(vmessData.ps || 'VMess-Proxy');
            } catch(e) {}
+        } else {
+           // Try to extract name from raw YAML
+           const nameMatch = line.match(/- name:\s*['"]?([^'"]+)['"]?/);
+           if (nameMatch) {
+             customProxyNames.push(nameMatch[1]);
+           }
         }
       }
 
@@ -221,11 +235,14 @@ export default {
       const autoGroupName = `⚡ ${name} 自动选择`;
       autoGroupNames.push(autoGroupName);
 
+      // Use safe name for path
+      const safeName = name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+      
       // Add provider
       proxyProvidersSection += `  ${name}:
     type: http
     url: "${subUrl}"
-    path: ./providers/sub${index + 1}.yaml
+    path: ./providers/${safeName}.yaml
     interval: 3600
     health-check:
       enable: true

@@ -42,7 +42,8 @@ async function runLocalTest() {
     sni: "sni.com"
   }));
 
-  const customProxiesUri = [vlessUri, trojanUri, ssUri, vmessUri].join('\n');
+  const hy2Uri = 'hysteria2://auth@host:20000-40000?sni=sni.com&insecure=1#SigHy2';
+  const customProxiesUri = [vlessUri, trojanUri, ssUri, vmessUri, hy2Uri].join('\n');
 
   const params = [
     ['secret', 'my-custom-pass-789'],
