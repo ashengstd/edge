@@ -62,6 +62,9 @@ function parseProxyUri(uri: string): string {
     const hostname = url.hostname;
     // Use the captured port range if it existed, otherwise fallback to url.port or default
     const port = portRangeMatch ? portRangeMatch[1] : (url.port || (protocol === 'vmess' ? '80' : '443'));
+    // For Clash compatibility, 'port' should be a single number. 
+    // If it's a range (port-hopping), use the first port for the 'port' field.
+    const mainPort = port.includes('-') ? port.split('-')[0] : port;
     const password = decodeURIComponent(url.username || url.password || url.searchParams.get('auth') || '');
 
     if (protocol === 'hysteria2') {
@@ -76,7 +79,7 @@ function parseProxyUri(uri: string): string {
       yamlResult += `  - name: ${name}
     type: hysteria2
     server: ${hostname}
-    port: ${port}
+    port: ${mainPort}
     password: ${password}
     sni: ${sni}
     skip-cert-verify: ${skipCertVerify}
@@ -92,7 +95,7 @@ function parseProxyUri(uri: string): string {
         yamlResult += `  - name: ${name}
     type: vless
     server: ${hostname}
-    port: ${port}
+    port: ${mainPort}
     uuid: ${url.username}
     udp: true
     tls: ${url.searchParams.get('security') === 'tls' || url.searchParams.get('security') === 'reality'}
@@ -116,7 +119,7 @@ function parseProxyUri(uri: string): string {
         yamlResult += `  - name: ${name}
     type: trojan
     server: ${hostname}
-    port: ${port}
+    port: ${mainPort}
     password: ${url.username}
     udp: true
     skip-cert-verify: true
@@ -139,7 +142,7 @@ function parseProxyUri(uri: string): string {
         yamlResult += `  - name: ${name}
     type: ss
     server: ${hostname}
-    port: ${port}
+    port: ${mainPort}
     cipher: ${method}
     password: ${userPass}
     udp: true
@@ -149,7 +152,7 @@ function parseProxyUri(uri: string): string {
         yamlResult += `  - name: ${name}
     type: ${protocol}
     server: ${hostname}
-    port: ${port}
+    port: ${mainPort}
     udp: true
 `;
       }
