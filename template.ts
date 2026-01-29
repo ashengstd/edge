@@ -22,7 +22,12 @@ external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/downloa
 export const configGroupsHeader = `proxy-groups:
   - name: 🚀 节点选择
     type: select
-    proxies: [DIRECT, REJECT, {{AUTO_GROUPS_LIST}}, {{PROVIDERS_LIST}}]
+    proxies: [DIRECT, REJECT, {{AUTO_GROUPS_LIST}}, {{PROVIDERS_LIST}}, {{SELF_HOSTED_GROUP}}]
+`;
+
+export const configSelfHostedGroup = `  - name: Self-Hosted
+    type: select
+    proxies: [{{SELF_HOSTED_LIST}}]
 `;
 
 export const configGroupsMid = `  - name: 🛑 广告拦截

@@ -1,6 +1,7 @@
 import { 
-  configHeader, 
+  configHeader,
   configGroupsHeader, 
+  configSelfHostedGroup,
   configGroupsMid, 
   configFooter 
 } from './template';
@@ -184,8 +185,27 @@ export default {
 
     // Get custom proxies from parameter if provided
     let customProxies = searchParams.get('proxies') || '';
-    if (customProxies && customProxies.includes('://')) {
-      customProxies = parseProxyUri(customProxies);
+    let customProxyNames: string[] = [];
+
+    if (customProxies) {
+      // Extract names for the Self-Hosted group
+      const lines = customProxies.split(/[|\n]/).filter(l => l.trim());
+      for (const line of lines) {
+        if (line.includes('#')) {
+          customProxyNames.push(decodeURIComponent(line.split('#')[1].trim()));
+        } else if (line.startsWith('vmess://')) {
+           try {
+             const vmessData = JSON.parse(atob(line.replace('vmess://', '')));
+             customProxyNames.push(vmessData.ps || 'VMess-Proxy');
+           } catch(e) {}
+        }
+      }
+
+      if (customProxies.includes('://')) {
+        customProxies = parseProxyUri(customProxies);
+      } else {
+        customProxies = `proxies:\n${customProxies.split('\n').map(l => l.startsWith('  -') ? l : `  - ${l}`).join('\n')}\n`;
+      }
     }
 
     // Generate proxy-providers and dynamic groups
@@ -233,14 +253,23 @@ export default {
     const providersList = providerNames.join(', ');
     const autoGroupsList = autoGroupNames.join(', ');
 
+    // Handle Self-Hosted group injection
+    let selfHostedGroupYaml = '';
+    let selfHostedPlaceholder = '';
+    if (customProxyNames.length > 0) {
+      selfHostedGroupYaml = configSelfHostedGroup.replace('{{SELF_HOSTED_LIST}}', customProxyNames.join(', '));
+      selfHostedPlaceholder = 'Self-Hosted';
+    }
+
     // Replace placeholders in templates
-    let header = configHeader.replace(/{{SECRET}}/g, providedSecret);
+    const header = configHeader.replace(/{{SECRET}}/g, providedSecret);
     
-    let groupsHeader = configGroupsHeader
+    const groupsHeader = configGroupsHeader
       .replace(/{{PROVIDERS_LIST}}/g, providersList)
-      .replace(/{{AUTO_GROUPS_LIST}}/g, autoGroupsList);
+      .replace(/{{AUTO_GROUPS_LIST}}/g, autoGroupsList)
+      .replace(/{{SELF_HOSTED_GROUP}}/g, selfHostedPlaceholder);
     
-    let groupsMid = configGroupsMid
+    const groupsMid = configGroupsMid
       .replace(/{{PROVIDERS_LIST}}/g, providersList)
       .replace(/{{AUTO_GROUPS_LIST}}/g, autoGroupsList);
 
@@ -248,7 +277,7 @@ export default {
     const finalYaml = `${header}
 ${subscriptions.length > 0 ? proxyProvidersSection : ''}
 ${customProxies}
-${groupsHeader}${dynamicGroupsSection}${groupsMid}
+${groupsHeader}${selfHostedGroupYaml}${dynamicGroupsSection}${groupsMid}
 ${configFooter}`;
 
     return new Response(finalYaml, {

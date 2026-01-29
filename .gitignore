@@ -41,3 +41,6 @@ output.yaml
 
 # AI tools data
 .gemini
+
+# Local user data
+proxy.yaml
