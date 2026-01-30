@@ -40,7 +40,7 @@ function generateUrl() {
     }
 
     // You should replace this with your actual worker domain
-    const workerDomain = 'https://edge.ascka.workers.dev/'; 
+    const workerDomain = 'https://config.ascka.qzz.io/'; 
     const params = new URLSearchParams();
     
     if (secret) params.set('secret', secret);
