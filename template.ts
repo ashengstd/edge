@@ -352,6 +352,7 @@ rule-providers:
   adobe: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/adobe.mrs", path: ./ruleset/adobe.mrs, interval: 86400 }
 
   # General GeoData
+  google: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.mrs", path: ./ruleset/google.mrs, interval: 86400 }
   geolocation-cn: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/geolocation-cn.mrs", path: ./ruleset/geolocation-cn.mrs, interval: 86400 }
   geolocation-!cn: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/geolocation-!cn.mrs", path: ./ruleset/geolocation-!cn.mrs, interval: 86400 }
   private: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/private.mrs", path: ./ruleset/private.mrs, interval: 86400 }
@@ -374,14 +375,12 @@ rules:
 
   # Local/Direct Rules
   - RULE-SET,private,🏠 私有网络,no-resolve
-  - GEOSITE,cn,DIRECT
-  - GEOSITE,geolocation-cn,DIRECT
   - RULE-SET,geolocation-cn,🔒 国内服务
   - RULE-SET,cn,🔒 国内服务,no-resolve
 
   # Global Logic
-  - GEOSITE,google,🚀 节点选择
-  - GEOSITE,geolocation-!cn,🚀 节点选择
+  - RULE-SET,google,🚀 节点选择
+  - RULE-SET,geolocation-!cn,🚀 节点选择
   - RULE-SET,category-ads-all,🛑 广告拦截
 
   # AI Services
