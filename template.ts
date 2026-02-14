@@ -8,6 +8,8 @@ export const configHeader = `tun:
     - tcp://any:53
     - any:1053
     - tcp://any:1053
+  loopback-address:
+    - 10.7.0.1
 
 external-controller: 0.0.0.0:9090
 external-controller-cors:
