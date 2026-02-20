@@ -12,6 +12,13 @@ export const configHeader = `tun:
   loopback-address:
     - 10.7.0.1
 
+ipv6: false
+log-level: info
+mixed-port: 7897
+allow-lan: true
+unified-delay: true
+tcp-concurrent: true
+
 external-controller: 0.0.0.0:9090
 external-controller-cors:
   allow-origins:
@@ -116,6 +123,11 @@ export const configGroupsMid = `  - name: 🛑 广告拦截
     proxies: [🚀 节点选择, DIRECT, REJECT, {{AUTO_GROUPS_LIST}}]
     include-all-proxies: true
     use: [{{PROVIDERS_LIST}}]
+  - name: 🔗 其它服务
+    type: select
+    proxies: [🚀 节点选择, DIRECT, REJECT, {{AUTO_GROUPS_LIST}}]
+    include-all-proxies: true
+    use: [{{PROVIDERS_LIST}}]
   - name: 🌐 非中国
     type: select
     proxies: [🚀 节点选择, DIRECT, REJECT, {{AUTO_GROUPS_LIST}}]
@@ -126,15 +138,24 @@ export const configGroupsMid = `  - name: 🛑 广告拦截
     proxies: [🚀 节点选择, DIRECT, REJECT, {{AUTO_GROUPS_LIST}}]
     include-all-proxies: true
     use: [{{PROVIDERS_LIST}}]
+  - name: 🛡️ 隐私防护
+    type: select
+    proxies: [REJECT, DIRECT, 🚀 节点选择]
+  - name: 🧪 测速专线
+    type: select
+    proxies: [🚀 节点选择, DIRECT, {{AUTO_GROUPS_LIST}}]
+    include-all-proxies: true
+    use: [{{PROVIDERS_LIST}}]
+  - name: 🕓 NTP 服务
+    type: select
+    proxies: [DIRECT, 🚀 节点选择]
+  - name: 🔗 节点链
+    type: relay
+    proxies: [🚀 节点选择, {{AUTO_GROUPS_LIST}}]
 `;
 
 export const configFooter = `
-mixed-port: 7897
-allow-lan: true
-mode: rule
-log-level: info
-unified-delay: true
-tcp-concurrent: true
+mode:rule
 find-process-mode: strict
 global-client-fingerprint: chrome
 
@@ -145,14 +166,18 @@ dns:
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   default-nameserver:
-    - 8.8.8.8
-    - 1.1.1.1
+    - 223.5.5.5
+    - 119.29.29.29
   nameserver:
-    - 45.90.28.239
-    - 45.90.30.239
-  fallback:
     - https://dns.alidns.com/dns-query
-    - https://doh.apad.pro/dns-query
+    - https://doh.pub/dns-query
+  nameserver-policy:
+    "rule-set:openai,anthropic,google-gemini,deepseek,perplexity": "https://8.8.8.8/dns-query"
+    "rule-set:geolocation-!cn": "https://1.1.1.1/dns-query"
+    "rule-set:geolocation-cn,cn": "https://dns.alidns.com/dns-query"
+  fallback:
+    - https://8.8.8.8/dns-query
+    - https://1.1.1.1/dns-query
   fallback-filter:
     {
       geoip: true,
@@ -163,11 +188,9 @@ dns:
           +.facebook.com,
           +.twitter.com,
           +.youtube.com,
-          +.xn--ngstr-lra8j.com,
           +.google.cn,
           +.googleapis.cn,
           +.googleapis.com,
-          +.gvt1.com,
         ],
     }
   fake-ip-filter:
@@ -262,6 +285,34 @@ dns:
       "*.square-enix.com",
       "*.finalfantasyxiv.com",
       "*.ffxiv.com",
+      "*.mcdn.bilivideo.cn",
+      "+.ext.skype.com",
+      "+.skype.com",
+      "+.skypeforbusiness.com",
+      "+.teams.microsoft.com",
+      "teams.microsoft.com",
+      "*.teams.microsoft.com",
+      "*.s-microsoft.com",
+      "+.msecnd.net",
+      "+.visualstudio.com",
+      "*.vsassets.io",
+      "*.vstoken.visualstudio.com",
+      "+.vo.msecnd.net",
+      "+.aspnetcdn.com",
+      "+.microsoft.com",
+      "+.msn.com",
+      "+.windows.com",
+      "+.microsoftonline.com",
+      "+.office.com",
+      "+.office365.com",
+      "+.outlook.com",
+      "+.sharepoint.com",
+      "broadcast.xboxlive.com",
+      "cert.mcafee.com",
+      "download.mcafee.com",
+      "*.mcafee.com",
+      "*.mcafee.com.cn",
+      "*.mcafee.com.hk",
     ]
 
 profile:
@@ -274,6 +325,7 @@ sniffer:
   sniff:
     TLS: { ports: [443, 8443] }
     HTTP: { ports: [80, 8080-8880], override-destination: true }
+    QUIC: { ports: [443, 8443] }
 
 geodata-mode: true
 geo-auto-update: true
@@ -287,6 +339,9 @@ geox-url:
 
 rule-providers:
   # Aggregated Categories
+  httpdns: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/httpdns.mrs", path: ./ruleset/httpdns.mrs, interval: 86400 }
+  advertising: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ads-all.mrs", path: ./ruleset/advertising.mrs, interval: 86400 }
+  privacy: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/privacy.mrs", path: ./ruleset/privacy.mrs, interval: 86400 }
   category-ads-all: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ads-all.mrs", path: ./ruleset/category-ads-all.mrs, interval: 86400 }
   category-ai-chat-!cn: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ai-chat-!cn.mrs", path: ./ruleset/category-ai-chat-!cn.mrs, interval: 86400 }
   category-media: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-media.mrs", path: ./ruleset/category-media.mrs, interval: 86400 }
@@ -294,6 +349,7 @@ rule-providers:
   category-social-media-!cn: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-social-media-!cn.mrs", path: ./ruleset/category-social-media-!cn.mrs, interval: 86400 }
   category-dev: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-dev.mrs", path: ./ruleset/category-dev.mrs, interval: 86400 }
   category-scholar-!cn: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-scholar-!cn.mrs", path: ./ruleset/category-scholar-!cn.mrs, interval: 86400 }
+  speedtest: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/speedtest.mrs", path: ./ruleset/speedtest.mrs, interval: 86400 }
 
   # AI Services
   openai: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/openai.mrs", path: ./ruleset/openai.mrs, interval: 86400 }
@@ -362,6 +418,15 @@ rule-providers:
   cn: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/cn.mrs", path: ./ruleset/cn.mrs, interval: 86400 }
 
 rules:
+  # HttpDNS Protection
+  - RULE-SET,httpdns,🛡️ 隐私防护
+  - RULE-SET,advertising,🛡️ 隐私防护
+  - RULE-SET,privacy,🛡️ 隐私防护
+
+   # NTP & Speedtest
+  - RULE-SET,speedtest,🧪 测速专线
+  - DST-PORT,123,🕓 NTP 服务
+
   # Security Rejections
   - DST-PORT,3478,REJECT
   - DST-PORT,3479,REJECT
@@ -380,7 +445,6 @@ rules:
   - DST-PORT,22,DIRECT
 
   # Local/Direct Rules
-  rules:
   - IP-CIDR,10.0.0.0/8,DIRECT
   - IP-CIDR,100.64.0.0/10,DIRECT
   - IP-CIDR,172.16.0.0/12,DIRECT
@@ -390,8 +454,8 @@ rules:
   - RULE-SET,cn,🔒 国内服务,no-resolve
 
   # Global Logic
-  - RULE-SET,google,🚀 节点选择
-  - RULE-SET,geolocation-!cn,🚀 节点选择
+  - RULE-SET,google,🔍 谷歌服务
+  - RULE-SET,geolocation-!cn,🌐 非中国
   - RULE-SET,category-ads-all,🛑 广告拦截
 
   # AI Services
