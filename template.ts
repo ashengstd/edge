@@ -380,6 +380,11 @@ rules:
   - DST-PORT,22,DIRECT
 
   # Local/Direct Rules
+  rules:
+  - IP-CIDR,10.0.0.0/8,DIRECT
+  - IP-CIDR,100.64.0.0/10,DIRECT
+  - IP-CIDR,172.16.0.0/12,DIRECT
+  - IP-CIDR,192.168.0.0/16,DIRECT
   - RULE-SET,private,🏠 私有网络,no-resolve
   - RULE-SET,geolocation-cn,🔒 国内服务
   - RULE-SET,cn,🔒 国内服务,no-resolve
