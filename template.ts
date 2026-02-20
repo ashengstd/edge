@@ -339,83 +339,83 @@ geox-url:
 
 rule-providers:
   # Aggregated Categories
-  httpdns: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/httpdns.mrs", path: ./ruleset/httpdns.mrs, interval: 86400 }
-  advertising: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ads-all.mrs", path: ./ruleset/advertising.mrs, interval: 86400 }
-  privacy: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/privacy.mrs", path: ./ruleset/privacy.mrs, interval: 86400 }
-  category-ads-all: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ads-all.mrs", path: ./ruleset/category-ads-all.mrs, interval: 86400 }
-  category-ai-chat-!cn: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ai-chat-!cn.mrs", path: ./ruleset/category-ai-chat-!cn.mrs, interval: 86400 }
-  category-media: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-media.mrs", path: ./ruleset/category-media.mrs, interval: 86400 }
-  category-games: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-games.mrs", path: ./ruleset/category-games.mrs, interval: 86400 }
-  category-social-media-!cn: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-social-media-!cn.mrs", path: ./ruleset/category-social-media-!cn.mrs, interval: 86400 }
-  category-dev: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-dev.mrs", path: ./ruleset/category-dev.mrs, interval: 86400 }
-  category-scholar-!cn: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-scholar-!cn.mrs", path: ./ruleset/category-scholar-!cn.mrs, interval: 86400 }
-  speedtest: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/speedtest.mrs", path: ./ruleset/speedtest.mrs, interval: 86400 }
+  httpdns: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/httpdns.yaml", path: ./ruleset/httpdns.yaml, interval: 86400 }
+  advertising: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ads-all.yaml", path: ./ruleset/advertising.yaml, interval: 86400 }
+  privacy: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/privacy.yaml", path: ./ruleset/privacy.yaml, interval: 86400 }
+  category-ads-all: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ads-all.yaml", path: ./ruleset/category-ads-all.yaml, interval: 86400 }
+  category-ai-chat-!cn: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ai-chat-!cn.yaml", path: ./ruleset/category-ai-chat-!cn.yaml, interval: 86400 }
+  category-media: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-media.yaml", path: ./ruleset/category-media.yaml, interval: 86400 }
+  category-games: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-games.yaml", path: ./ruleset/category-games.yaml, interval: 86400 }
+  category-social-media-!cn: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-social-media-!cn.yaml", path: ./ruleset/category-social-media-!cn.yaml, interval: 86400 }
+  category-dev: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-dev.yaml", path: ./ruleset/category-dev.yaml, interval: 86400 }
+  category-scholar-!cn: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-scholar-!cn.yaml", path: ./ruleset/category-scholar-!cn.yaml, interval: 86400 }
+  speedtest: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/speedtest.yaml", path: ./ruleset/speedtest.yaml, interval: 86400 }
 
   # AI Services
-  openai: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/openai.mrs", path: ./ruleset/openai.mrs, interval: 86400 }
-  anthropic: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/anthropic.mrs", path: ./ruleset/anthropic.mrs, interval: 86400 }
-  google-gemini: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google-gemini.mrs", path: ./ruleset/google-gemini.mrs, interval: 86400 }
-  deepseek: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/deepseek.mrs", path: ./ruleset/deepseek.mrs, interval: 86400 }
-  perplexity: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/perplexity.mrs", path: ./ruleset/perplexity.mrs, interval: 86400 }
+  openai: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/openai.yaml", path: ./ruleset/openai.yaml, interval: 86400 }
+  anthropic: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/anthropic.yaml", path: ./ruleset/anthropic.yaml, interval: 86400 }
+  google-gemini: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google-gemini.yaml", path: ./ruleset/google-gemini.yaml, interval: 86400 }
+  deepseek: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/deepseek.yaml", path: ./ruleset/deepseek.yaml, interval: 86400 }
+  perplexity: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/perplexity.yaml", path: ./ruleset/perplexity.yaml, interval: 86400 }
 
   # Streaming & Media
-  youtube: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.mrs", path: ./ruleset/youtube.mrs, interval: 86400 }
-  netflix: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/netflix.mrs", path: ./ruleset/netflix.mrs, interval: 86400 }
-  disney: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/disney.mrs", path: ./ruleset/disney.mrs, interval: 86400 }
-  hbo: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/hbo.mrs", path: ./ruleset/hbo.mrs, interval: 86400 }
-  amazon: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/amazon.mrs", path: ./ruleset/amazon.mrs, interval: 86400 }
-  bahamut: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/bahamut.mrs", path: ./ruleset/bahamut.mrs, interval: 86400 }
-  spotify: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/spotify.mrs", path: ./ruleset/spotify.mrs, interval: 86400 }
-  abema: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/abema.mrs", path: ./ruleset/abema.mrs, interval: 86400 }
-  biliintl: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/biliintl.mrs", path: ./ruleset/biliintl.mrs, interval: 86400 }
-  pixiv: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/pixiv.mrs", path: ./ruleset/pixiv.mrs, interval: 86400 }
-  viu: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/viu.mrs", path: ./ruleset/viu.mrs, interval: 86400 }
-  dazn: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/dazn.mrs", path: ./ruleset/dazn.mrs, interval: 86400 }
-  tidal: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/tidal.mrs", path: ./ruleset/tidal.mrs, interval: 86400 }
+  youtube: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.yaml", path: ./ruleset/youtube.yaml, interval: 86400 }
+  netflix: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/netflix.yaml", path: ./ruleset/netflix.yaml, interval: 86400 }
+  disney: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/disney.yaml", path: ./ruleset/disney.yaml, interval: 86400 }
+  hbo: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/hbo.yaml", path: ./ruleset/hbo.yaml, interval: 86400 }
+  amazon: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/amazon.yaml", path: ./ruleset/amazon.yaml, interval: 86400 }
+  bahamut: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/bahamut.yaml", path: ./ruleset/bahamut.yaml, interval: 86400 }
+  spotify: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/spotify.yaml", path: ./ruleset/spotify.yaml, interval: 86400 }
+  abema: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/abema.yaml", path: ./ruleset/abema.yaml, interval: 86400 }
+  biliintl: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/biliintl.yaml", path: ./ruleset/biliintl.yaml, interval: 86400 }
+  pixiv: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/pixiv.yaml", path: ./ruleset/pixiv.yaml, interval: 86400 }
+  viu: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/viu.yaml", path: ./ruleset/viu.yaml, interval: 86400 }
+  dazn: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/dazn.yaml", path: ./ruleset/dazn.yaml, interval: 86400 }
+  tidal: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/tidal.yaml", path: ./ruleset/tidal.yaml, interval: 86400 }
 
   # Social Media
-  telegram: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/telegram.mrs", path: ./ruleset/telegram.mrs, interval: 86400 }
-  facebook: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/facebook.mrs", path: ./ruleset/facebook.mrs, interval: 86400 }
-  instagram: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/instagram.mrs", path: ./ruleset/instagram.mrs, interval: 86400 }
-  twitter: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/twitter.mrs", path: ./ruleset/twitter.mrs, interval: 86400 }
-  tiktok: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/tiktok.mrs", path: ./ruleset/tiktok.mrs, interval: 86400 }
-  discord: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/discord.mrs", path: ./ruleset/discord.mrs, interval: 86400 }
-  bluesky: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/bluesky.mrs", path: ./ruleset/bluesky.mrs, interval: 86400 }
-  signal: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/signal.mrs", path: ./ruleset/signal.mrs, interval: 86400 }
-  whatsapp: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/whatsapp.mrs", path: ./ruleset/whatsapp.mrs, interval: 86400 }
-  line: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/line.mrs", path: ./ruleset/line.mrs, interval: 86400 }
+  telegram: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/telegram.yaml", path: ./ruleset/telegram.yaml, interval: 86400 }
+  facebook: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/facebook.yaml", path: ./ruleset/facebook.yaml, interval: 86400 }
+  instagram: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/instagram.yaml", path: ./ruleset/instagram.yaml, interval: 86400 }
+  twitter: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/twitter.yaml", path: ./ruleset/twitter.yaml, interval: 86400 }
+  tiktok: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/tiktok.yaml", path: ./ruleset/tiktok.yaml, interval: 86400 }
+  discord: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/discord.yaml", path: ./ruleset/discord.yaml, interval: 86400 }
+  bluesky: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/bluesky.yaml", path: ./ruleset/bluesky.yaml, interval: 86400 }
+  signal: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/signal.yaml", path: ./ruleset/signal.yaml, interval: 86400 }
+  whatsapp: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/whatsapp.yaml", path: ./ruleset/whatsapp.yaml, interval: 86400 }
+  line: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/line.yaml", path: ./ruleset/line.yaml, interval: 86400 }
 
   # Games
-  steam: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/steam.mrs", path: ./ruleset/steam.mrs, interval: 86400 }
-  epicgames: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/epicgames.mrs", path: ./ruleset/epicgames.mrs, interval: 86400 }
-  ea: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/ea.mrs", path: ./ruleset/ea.mrs, interval: 86400 }
-  ubisoft: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/ubisoft.mrs", path: ./ruleset/ubisoft.mrs, interval: 86400 }
-  blizzard: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/blizzard.mrs", path: ./ruleset/blizzard.mrs, interval: 86400 }
-  nintendo: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/nintendo.mrs", path: ./ruleset/nintendo.mrs, interval: 86400 }
-  playstation: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/playstation.mrs", path: ./ruleset/playstation.mrs, interval: 86400 }
-  xbox: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/xbox.mrs", path: ./ruleset/xbox.mrs, interval: 86400 }
-  riot: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/riot.mrs", path: ./ruleset/riot.mrs, interval: 86400 }
-  hoyoverse: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/hoyoverse.mrs", path: ./ruleset/hoyoverse.mrs, interval: 86400 }
+  steam: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/steam.yaml", path: ./ruleset/steam.yaml, interval: 86400 }
+  epicgames: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/epicgames.yaml", path: ./ruleset/epicgames.yaml, interval: 86400 }
+  ea: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/ea.yaml", path: ./ruleset/ea.yaml, interval: 86400 }
+  ubisoft: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/ubisoft.yaml", path: ./ruleset/ubisoft.yaml, interval: 86400 }
+  blizzard: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/blizzard.yaml", path: ./ruleset/blizzard.yaml, interval: 86400 }
+  nintendo: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/nintendo.yaml", path: ./ruleset/nintendo.yaml, interval: 86400 }
+  playstation: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/playstation.yaml", path: ./ruleset/playstation.yaml, interval: 86400 }
+  xbox: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/xbox.yaml", path: ./ruleset/xbox.yaml, interval: 86400 }
+  riot: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/riot.yaml", path: ./ruleset/riot.yaml, interval: 86400 }
+  hoyoverse: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/hoyoverse.yaml", path: ./ruleset/hoyoverse.yaml, interval: 86400 }
 
   # Developer & Tools
-  github: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/github.mrs", path: ./ruleset/github.mrs, interval: 86400 }
-  gitlab: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/gitlab.mrs", path: ./ruleset/gitlab.mrs, interval: 86400 }
-  microsoft: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/microsoft.mrs", path: ./ruleset/microsoft.mrs, interval: 86400 }
-  apple: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/apple.mrs", path: ./ruleset/apple.mrs, interval: 86400 }
-  appletv: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/apple-tvplus.mrs", path: ./ruleset/appletv.mrs, interval: 86400 }
-  applemusic: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo-lite/geosite/applemusic.mrs", path: ./ruleset/applemusic.mrs, interval: 86400 }
-  notion: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/notion.mrs", path: ./ruleset/notion.mrs, interval: 86400 }
-  canva: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/canva.mrs", path: ./ruleset/canva.mrs, interval: 86400 }
-  docker: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/docker.mrs", path: ./ruleset/docker.mrs, interval: 86400 }
-  jetbrains: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/jetbrains.mrs", path: ./ruleset/jetbrains.mrs, interval: 86400 }
-  adobe: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/adobe.mrs", path: ./ruleset/adobe.mrs, interval: 86400 }
+  github: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/github.yaml", path: ./ruleset/github.yaml, interval: 86400 }
+  gitlab: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/gitlab.yaml", path: ./ruleset/gitlab.yaml, interval: 86400 }
+  microsoft: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/microsoft.yaml", path: ./ruleset/microsoft.yaml, interval: 86400 }
+  apple: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/apple.yaml", path: ./ruleset/apple.yaml, interval: 86400 }
+  appletv: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/apple-tvplus.yaml", path: ./ruleset/appletv.yaml, interval: 86400 }
+  applemusic: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo-lite/geosite/applemusic.yaml", path: ./ruleset/applemusic.yaml, interval: 86400 }
+  notion: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/notion.yaml", path: ./ruleset/notion.yaml, interval: 86400 }
+  canva: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/canva.yaml", path: ./ruleset/canva.yaml, interval: 86400 }
+  docker: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/docker.yaml", path: ./ruleset/docker.yaml, interval: 86400 }
+  jetbrains: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/jetbrains.yaml", path: ./ruleset/jetbrains.yaml, interval: 86400 }
+  adobe: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/adobe.yaml", path: ./ruleset/adobe.yaml, interval: 86400 }
 
   # General GeoData
-  google: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.mrs", path: ./ruleset/google.mrs, interval: 86400 }
-  geolocation-cn: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/geolocation-cn.mrs", path: ./ruleset/geolocation-cn.mrs, interval: 86400 }
-  geolocation-!cn: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/geolocation-!cn.mrs", path: ./ruleset/geolocation-!cn.mrs, interval: 86400 }
-  private: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/private.mrs", path: ./ruleset/private.mrs, interval: 86400 }
-  cn: { type: http, format: mrs, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/cn.mrs", path: ./ruleset/cn.mrs, interval: 86400 }
+  google: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.yaml", path: ./ruleset/google.yaml, interval: 86400 }
+  geolocation-cn: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/geolocation-cn.yaml", path: ./ruleset/geolocation-cn.yaml, interval: 86400 }
+  geolocation-!cn: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/geolocation-!cn.yaml", path: ./ruleset/geolocation-!cn.yaml, interval: 86400 }
+  private: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/private.yaml", path: ./ruleset/private.yaml, interval: 86400 }
+  cn: { type: http, format: yaml, behavior: domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/cn.yaml", path: ./ruleset/cn.yaml, interval: 86400 }
 
 rules:
   # HttpDNS Protection
