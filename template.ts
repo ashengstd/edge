@@ -32,7 +32,18 @@ external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/downloa
 export const configGroupsHeader = `proxy-groups:
   - name: 🚀 节点选择
     type: select
-    proxies: [DIRECT, REJECT, {{AUTO_GROUPS_LIST}}, {{PROVIDERS_LIST}}, {{SELF_HOSTED_GROUP}}]
+    proxies: [DIRECT, REJECT, 🔗 节点链, {{AUTO_GROUPS_LIST}}, {{PROVIDERS_LIST}}, {{SELF_HOSTED_GROUP}}]
+  - name: 🏮 入口节点
+    type: select
+    include-all-proxies: true
+    proxies: [DIRECT, {{AUTO_GROUPS_LIST}}, {{PROVIDERS_LIST}}, {{SELF_HOSTED_GROUP}}]
+  - name: 🛫 出口节点
+    type: select
+    include-all-proxies: true
+    proxies: [DIRECT, {{AUTO_GROUPS_LIST}}, {{PROVIDERS_LIST}}, {{SELF_HOSTED_GROUP}}]
+  - name: 🔗 节点链
+    type: relay
+    proxies: [🏮 入口节点, 🛫 出口节点]
 `;
 
 export const configSelfHostedGroup = `  - name: Self-Hosted
@@ -149,9 +160,6 @@ export const configGroupsMid = `  - name: 🛑 广告拦截
   - name: 🕓 NTP 服务
     type: select
     proxies: [DIRECT, 🚀 节点选择]
-  - name: 🔗 节点链
-    type: relay
-    proxies: [🚀 节点选择, {{AUTO_GROUPS_LIST}}]
 `;
 
 export const configFooter = `

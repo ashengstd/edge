@@ -9,7 +9,18 @@ A Cloudflare Worker-based subscription converter and configuration generator for
 - **Split Auto-Grouping**: Creates individual `url-test` groups for each provider for better performance monitoring.
 - **Hysteria2 Support**: Built-in parser for Hysteria2 URIs.
 - **Optimized Templates**: Uses a separate template system for clean configuration management.
+- **Node Chains (Relay)**: Support for traffic relaying through multiple nodes.
 - **TypeScript**: Fully typed codebase for reliability.
+
+## Features
+
+### Node Chains (Relay)
+
+The "Node Chain" (🔗 节点链) is a special proxy group type called `relay`. It allows you to chain multiple proxies together. Traffic will go through each proxy in the order they are listed.
+
+- **How it works**: In the `template.ts`, the `🔗 节点链` group is configured to use `🚀 节点选择` and `{{AUTO_GROUPS_LIST}}`.
+- **Order of Traffic**: Traffic -> Node 1 (Entry) -> Node 2 (Exit) -> Destination.
+- **Use Case**: This is particularly useful for hiding your final exit node from your local ISP or for bypassing certain regional restrictions by using multiple hops.
 
 ## Usage
 
