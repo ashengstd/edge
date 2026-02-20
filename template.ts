@@ -155,7 +155,7 @@ export const configGroupsMid = `  - name: 🛑 广告拦截
 `;
 
 export const configFooter = `
-mode:rule
+mode: rule
 find-process-mode: strict
 global-client-fingerprint: chrome
 
