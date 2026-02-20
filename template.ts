@@ -178,14 +178,14 @@ dns:
     - 119.29.29.29
   nameserver:
     - https://dns.alidns.com/dns-query
-    - https://doh.pub/dns-query
+    - 223.5.5.5
   nameserver-policy:
     "rule-set:openai,anthropic,google-gemini,deepseek,perplexity": "https://8.8.8.8/dns-query"
-    "rule-set:geolocation-!cn": "https://1.1.1.1/dns-query"
+    "rule-set:geolocation-!cn": ["https://dns.alidns.com/dns-query", "https://1.1.1.1/dns-query"]
     "rule-set:geolocation-cn,cn": "https://dns.alidns.com/dns-query"
   fallback:
+    - 8.8.8.8
     - https://8.8.8.8/dns-query
-    - https://1.1.1.1/dns-query
   fallback-filter:
     {
       geoip: true,
@@ -463,6 +463,11 @@ rules:
 
   # Global Logic
   - RULE-SET,google,🔍 谷歌服务
+  - RULE-SET,apple,🍏 苹果服务
+  - RULE-SET,microsoft,Ⓜ️ 微软服务
+  - RULE-SET,github,🐱 Github
+  - RULE-SET,gitlab,🐱 Github
+  - RULE-SET,telegram,📲 电报消息,no-resolve
   - RULE-SET,geolocation-!cn,🌐 非中国
   - RULE-SET,category-ads-all,🛑 广告拦截
 
@@ -473,9 +478,6 @@ rules:
   - RULE-SET,google-gemini,💬 AI 服务
   - RULE-SET,deepseek,💬 AI 服务
   - RULE-SET,perplexity,💬 AI 服务
-
-  # Telegram
-  - RULE-SET,telegram,📲 电报消息,no-resolve
 
   # Media & Streaming
   - RULE-SET,youtube,📹 油管视频
@@ -521,10 +523,6 @@ rules:
   - RULE-SET,category-games,🎮 游戏平台
 
   # Tools & Services
-  - RULE-SET,github,🐱 Github
-  - RULE-SET,gitlab,🐱 Github
-  - RULE-SET,microsoft,Ⓜ️ 微软服务
-  - RULE-SET,apple,🍏 苹果服务
   - RULE-SET,notion,☁️ 云服务
   - RULE-SET,canva,☁️ 云服务
   - RULE-SET,docker,☁️ 云服务
