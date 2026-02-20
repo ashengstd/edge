@@ -2,6 +2,7 @@ export const configHeader = `tun:
   enable: false
   stack: system
   auto-route: true
+  auto-redirect: true
   auto-detect-interface: true
   dns-hijack:
     - any:53
@@ -374,6 +375,9 @@ rules:
   - DST-PORT,19307,REJECT
   - DST-PORT,19308,REJECT
   - DST-PORT,19309,REJECT
+  
+  # ssh
+  - DST-PORT,22,DIRECT
 
   # Local/Direct Rules
   - RULE-SET,private,🏠 私有网络,no-resolve
