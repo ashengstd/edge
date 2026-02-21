@@ -12,483 +12,483 @@ export const configRuleProviders = `rule-providers:
   # category-httpdns-cn: CN 应用的 HttpDNS 绕过（比 httpdns 更全）
   category-httpdns-cn:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-httpdns-cn.yaml"
-    path: ./ruleset/category-httpdns-cn.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-httpdns-cn.mrs"
+    path: ./ruleset/category-httpdns-cn.mrs
     interval: 86400
 
   # category-doh: DoH 服务端点（防止 App 绕过本地 DNS）
   category-doh:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-doh.yaml"
-    path: ./ruleset/category-doh.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-doh.mrs"
+    path: ./ruleset/category-doh.mrs
     interval: 86400
 
   advertising:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ads-all.yaml"
-    path: ./ruleset/advertising.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ads-all.mrs"
+    path: ./ruleset/advertising.mrs
     interval: 86400
 
   # Windows 遥测 & 追踪
   win-spy:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/win-spy.yaml"
-    path: ./ruleset/win-spy.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/win-spy.mrs"
+    path: ./ruleset/win-spy.mrs
     interval: 86400
 
   win-extra:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/win-extra.yaml"
-    path: ./ruleset/win-extra.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/win-extra.mrs"
+    path: ./ruleset/win-extra.mrs
     interval: 86400
 
   win-update:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/win-update.yaml"
-    path: ./ruleset/win-update.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/win-update.mrs"
+    path: ./ruleset/win-update.mrs
     interval: 86400
 
   # -- AI 服务 (DNS policy 需独立集，路由由 category 统一处理) --
   category-ai-chat-!cn:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ai-chat-!cn.yaml"
-    path: ./ruleset/category-ai-chat-!cn.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ai-chat-!cn.mrs"
+    path: ./ruleset/category-ai-chat-!cn.mrs
     interval: 86400
 
   openai:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/openai.yaml"
-    path: ./ruleset/openai.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/openai.mrs"
+    path: ./ruleset/openai.mrs
     interval: 86400
 
   anthropic:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/anthropic.yaml"
-    path: ./ruleset/anthropic.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/anthropic.mrs"
+    path: ./ruleset/anthropic.mrs
     interval: 86400
 
   google-gemini:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google-gemini.yaml"
-    path: ./ruleset/google-gemini.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google-gemini.mrs"
+    path: ./ruleset/google-gemini.mrs
     interval: 86400
 
   deepseek:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/deepseek.yaml"
-    path: ./ruleset/deepseek.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/deepseek.mrs"
+    path: ./ruleset/deepseek.mrs
     interval: 86400
 
   perplexity:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/perplexity.yaml"
-    path: ./ruleset/perplexity.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/perplexity.mrs"
+    path: ./ruleset/perplexity.mrs
     interval: 86400
 
   xai:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/xai.yaml"
-    path: ./ruleset/xai.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/xai.mrs"
+    path: ./ruleset/xai.mrs
     interval: 86400
 
   # AI 编辑器（cursor/windsurf/trae/manus 未必在 category-ai-chat-!cn 中）
   cursor:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/cursor.yaml"
-    path: ./ruleset/cursor.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/cursor.mrs"
+    path: ./ruleset/cursor.mrs
     interval: 86400
 
   windsurf:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/windsurf.yaml"
-    path: ./ruleset/windsurf.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/windsurf.mrs"
+    path: ./ruleset/windsurf.mrs
     interval: 86400
 
   trae:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/trae.yaml"
-    path: ./ruleset/trae.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/trae.mrs"
+    path: ./ruleset/trae.mrs
     interval: 86400
 
   manus:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/manus.yaml"
-    path: ./ruleset/manus.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/manus.mrs"
+    path: ./ruleset/manus.mrs
     interval: 86400
 
   jetbrains-ai:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/jetbrains-ai.yaml"
-    path: ./ruleset/jetbrains-ai.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/jetbrains-ai.mrs"
+    path: ./ruleset/jetbrains-ai.mrs
     interval: 86400
 
   # -- 流媒体 --------------------------------------------------
   youtube:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.yaml"
-    path: ./ruleset/youtube.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.mrs"
+    path: ./ruleset/youtube.mrs
     interval: 86400
 
   # category-entertainment@!cn 覆盖 twitch/biliintl/category-media 等境外娱乐
   category-entertainment@!cn:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-entertainment@!cn.yaml"
-    path: ./ruleset/category-entertainment@!cn.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-entertainment@!cn.mrs"
+    path: ./ruleset/category-entertainment@!cn.mrs
     interval: 86400
 
   # -- 苹果服务 ------------------------------------------------
   apple:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/apple.yaml"
-    path: ./ruleset/apple.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/apple.mrs"
+    path: ./ruleset/apple.mrs
     interval: 86400
 
   appletv:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/apple-tvplus.yaml"
-    path: ./ruleset/appletv.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/apple-tvplus.mrs"
+    path: ./ruleset/appletv.mrs
     interval: 86400
 
   # -- 谷歌服务 ------------------------------------------------
   google:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.yaml"
-    path: ./ruleset/google.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.mrs"
+    path: ./ruleset/google.mrs
     interval: 86400
 
   # -- 微软服务 ------------------------------------------------
   microsoft:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/microsoft.yaml"
-    path: ./ruleset/microsoft.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/microsoft.mrs"
+    path: ./ruleset/microsoft.mrs
     interval: 86400
 
   onedrive:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/onedrive.yaml"
-    path: ./ruleset/onedrive.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/onedrive.mrs"
+    path: ./ruleset/onedrive.mrs
     interval: 86400
 
   # -- 开发工具 ------------------------------------------------
   # category-dev 含 github/npm/pypi/rubygems/crates.io 等
   category-dev:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-dev.yaml"
-    path: ./ruleset/category-dev.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-dev.mrs"
+    path: ./ruleset/category-dev.mrs
     interval: 86400
 
   # category-container 覆盖 docker/quay 等容器仓库
   category-container:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-container.yaml"
-    path: ./ruleset/category-container.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-container.mrs"
+    path: ./ruleset/category-container.mrs
     interval: 86400
 
   microsoft-dev:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/microsoft-dev.yaml"
-    path: ./ruleset/microsoft-dev.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/microsoft-dev.mrs"
+    path: ./ruleset/microsoft-dev.mrs
     interval: 86400
 
   jetbrains:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/jetbrains.yaml"
-    path: ./ruleset/jetbrains.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/jetbrains.mrs"
+    path: ./ruleset/jetbrains.mrs
     interval: 86400
 
   gitlab:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/gitlab.yaml"
-    path: ./ruleset/gitlab.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/gitlab.mrs"
+    path: ./ruleset/gitlab.mrs
     interval: 86400
 
   # -- 即时通讯 ------------------------------------------------
   # category-voip 覆盖 telegram/signal/whatsapp/line/zoom/webex 等
   category-voip:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-voip.yaml"
-    path: ./ruleset/category-voip.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-voip.mrs"
+    path: ./ruleset/category-voip.mrs
     interval: 86400
 
   # -- 社交媒体 ------------------------------------------------
   # category-social-media-!cn 覆盖 twitter/fb/ig/tiktok/discord/reddit 等
   category-social-media-!cn:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-social-media-!cn.yaml"
-    path: ./ruleset/category-social-media-!cn.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-social-media-!cn.mrs"
+    path: ./ruleset/category-social-media-!cn.mrs
     interval: 86400
 
   # category-forums 覆盖 reddit/hackernews/discourse 等
   category-forums:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-forums.yaml"
-    path: ./ruleset/category-forums.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-forums.mrs"
+    path: ./ruleset/category-forums.mrs
     interval: 86400
 
   # -- 游戏平台 ------------------------------------------------
   # category-games-!cn 仅境外游戏平台（更精确，避免误伤国内游戏）
   category-games-!cn:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-games-!cn.yaml"
-    path: ./ruleset/category-games-!cn.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-games-!cn.mrs"
+    path: ./ruleset/category-games-!cn.mrs
     interval: 86400
 
   # -- 教育资源 ------------------------------------------------
   category-scholar-!cn:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-scholar-!cn.yaml"
-    path: ./ruleset/category-scholar-!cn.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-scholar-!cn.mrs"
+    path: ./ruleset/category-scholar-!cn.mrs
     interval: 86400
 
   # -- 生产力工具 -----------------------------------------------
   # category-password-management 覆盖 1password/bitwarden/lastpass 等
   category-password-management:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-password-management.yaml"
-    path: ./ruleset/category-password-management.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-password-management.mrs"
+    path: ./ruleset/category-password-management.mrs
     interval: 86400
 
   slack:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/slack.yaml"
-    path: ./ruleset/slack.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/slack.mrs"
+    path: ./ruleset/slack.mrs
     interval: 86400
 
   dropbox:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/dropbox.yaml"
-    path: ./ruleset/dropbox.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/dropbox.mrs"
+    path: ./ruleset/dropbox.mrs
     interval: 86400
 
   mega:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/mega.yaml"
-    path: ./ruleset/mega.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/mega.mrs"
+    path: ./ruleset/mega.mrs
     interval: 86400
 
   protonmail:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/protonmail.yaml"
-    path: ./ruleset/protonmail.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/protonmail.mrs"
+    path: ./ruleset/protonmail.mrs
     interval: 86400
 
   tutanota:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/tutanota.yaml"
-    path: ./ruleset/tutanota.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/tutanota.mrs"
+    path: ./ruleset/tutanota.mrs
     interval: 86400
 
   # -- 云服务 --------------------------------------------------
   cloudflare:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/cloudflare.yaml"
-    path: ./ruleset/cloudflare.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/cloudflare.mrs"
+    path: ./ruleset/cloudflare.mrs
     interval: 86400
 
   # -- 金融服务 ------------------------------------------------
   category-finance:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-finance.yaml"
-    path: ./ruleset/category-finance.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-finance.mrs"
+    path: ./ruleset/category-finance.mrs
     interval: 86400
 
   # category-cryptocurrency 覆盖 coinbase/binance/okx 等
   category-cryptocurrency:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-cryptocurrency.yaml"
-    path: ./ruleset/category-cryptocurrency.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-cryptocurrency.mrs"
+    path: ./ruleset/category-cryptocurrency.mrs
     interval: 86400
 
   paypal:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/paypal.yaml"
-    path: ./ruleset/paypal.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/paypal.mrs"
+    path: ./ruleset/paypal.mrs
     interval: 86400
 
   # -- 新闻资讯 ------------------------------------------------
   category-news-ir:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-news-ir.yaml"
-    path: ./ruleset/category-news-ir.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-news-ir.mrs"
+    path: ./ruleset/category-news-ir.mrs
     interval: 86400
 
   # category-tech-media 覆盖 techcrunch/verge/arstechnica/wired 等
   category-tech-media:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-tech-media.yaml"
-    path: ./ruleset/category-tech-media.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-tech-media.mrs"
+    path: ./ruleset/category-tech-media.mrs
     interval: 86400
 
   # -- 成人内容 ------------------------------------------------
   category-porn:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-porn.yaml"
-    path: ./ruleset/category-porn.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-porn.mrs"
+    path: ./ruleset/category-porn.mrs
     interval: 86400
 
   # -- BT / PT 追踪器 ------------------------------------------
   category-public-tracker:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-public-tracker.yaml"
-    path: ./ruleset/category-public-tracker.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-public-tracker.mrs"
+    path: ./ruleset/category-public-tracker.mrs
     interval: 86400
 
   # category-pt: 私有 PT 站（M-Team/HDSky 等）
   category-pt:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-pt.yaml"
-    path: ./ruleset/category-pt.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-pt.mrs"
+    path: ./ruleset/category-pt.mrs
     interval: 86400
 
   # -- 测速 ----------------------------------------------------
   # category-speedtest 覆盖 ookla/fast.com/nperf 等
   category-speedtest:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-speedtest.yaml"
-    path: ./ruleset/category-speedtest.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-speedtest.mrs"
+    path: ./ruleset/category-speedtest.mrs
     interval: 86400
 
   # -- NTP 服务 ------------------------------------------------
   category-ntp:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ntp.yaml"
-    path: ./ruleset/category-ntp.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ntp.mrs"
+    path: ./ruleset/category-ntp.mrs
     interval: 86400
 
   # -- 地理数据 ------------------------------------------------
   private:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/private.yaml"
-    path: ./ruleset/private.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/private.mrs"
+    path: ./ruleset/private.mrs
     interval: 86400
 
   geolocation-cn:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/geolocation-cn.yaml"
-    path: ./ruleset/geolocation-cn.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/geolocation-cn.mrs"
+    path: ./ruleset/geolocation-cn.mrs
     interval: 86400
 
   geolocation-!cn:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/geolocation-!cn.yaml"
-    path: ./ruleset/geolocation-!cn.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/geolocation-!cn.mrs"
+    path: ./ruleset/geolocation-!cn.mrs
     interval: 86400
 
   cn:
     type: http
-    format: yaml
+    format: mrs
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/cn.yaml"
-    path: ./ruleset/cn.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/cn.mrs"
+    path: ./ruleset/cn.mrs
     interval: 86400
 `;
