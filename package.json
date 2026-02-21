@@ -15,6 +15,6 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "wrangler": "^4.61.1"
+    "wrangler": "^4"
   }
 }

@@ -1,10 +1,11 @@
-import { 
-  configHeader,
-  configGroupsHeader, 
-  configSelfHostedGroup,
-  configGroupsMid, 
-  configFooter 
-} from './template';
+import { configMihomoHeader } from './templates/mihomo/header';
+import { configMihomoGroupsHeader, configMihomoGroupsMid } from './templates/mihomo/groups';
+import { configMihomoFooter } from './templates/mihomo/footer';
+import { configStashHeader } from './templates/stash/header';
+import { configStashGroupsHeader, configStashGroupsMid } from './templates/stash/groups';
+import { configStashFooter } from './templates/stash/footer';
+import { configRuleProviders } from './templates/shared/rule-providers';
+import { configRules } from './templates/shared/rules';
 
 interface Subscription {
   name: string;
@@ -13,14 +14,13 @@ interface Subscription {
 
 function parseProxyUri(uri: string): string {
   if (!uri) return '';
-  
+
   const uris = uri.split(/[|\n]/).filter(u => u.trim());
   let yamlResult = 'proxies:\n';
-  
+
   for (const u of uris) {
     const trimmedUri = u.trim();
     if (!trimmedUri.includes('://') && !trimmedUri.startsWith('vmess://')) {
-      // If it's not a URI, might be raw YAML
       yamlResult += trimmedUri.startsWith('  -') ? trimmedUri + '\n' : `  - ${trimmedUri}\n`;
       continue;
     }
@@ -49,34 +49,30 @@ function parseProxyUri(uri: string): string {
         continue;
       }
 
-    let uriToParse = trimmedUri;
-    // Handle port ranges in URIs (e.g. :20000-40000) which break the URL constructor
-    const portRangeMatch = trimmedUri.match(/:(\d+-\d+)([\?#]|$)/);
-    if (portRangeMatch) {
-      uriToParse = trimmedUri.replace(portRangeMatch[1], '443');
-    }
+      let uriToParse = trimmedUri;
+      const portRangeMatch = trimmedUri.match(/:(\d+-\d+)([\?#]|$)/);
+      if (portRangeMatch) {
+        uriToParse = trimmedUri.replace(portRangeMatch[1], '443');
+      }
 
-    const url = new URL(uriToParse);
-    const protocol = url.protocol.replace(':', '');
-    const name = decodeURIComponent(url.hash.substring(1)) || `${protocol.toUpperCase()}-Proxy`;
-    const hostname = url.hostname;
-    // Use the captured port range if it existed, otherwise fallback to url.port or default
-    const port = portRangeMatch ? portRangeMatch[1] : (url.port || (protocol === 'vmess' ? '80' : '443'));
-    // For Clash compatibility, 'port' should be a single number. 
-    // If it's a range (port-hopping), use the first port for the 'port' field.
-    const mainPort = port.includes('-') ? port.split('-')[0] : port;
-    const password = decodeURIComponent(url.username || url.password || url.searchParams.get('auth') || '');
+      const url = new URL(uriToParse);
+      const protocol = url.protocol.replace(':', '');
+      const name = decodeURIComponent(url.hash.substring(1)) || `${protocol.toUpperCase()}-Proxy`;
+      const hostname = url.hostname;
+      const port = portRangeMatch ? portRangeMatch[1] : (url.port || (protocol === 'vmess' ? '80' : '443'));
+      const mainPort = port.includes('-') ? port.split('-')[0] : port;
+      const password = decodeURIComponent(url.username || url.password || url.searchParams.get('auth') || '');
 
-    if (protocol === 'hysteria2') {
-      const sni = url.searchParams.get('sni') || hostname;
-      const skipCertVerify = url.searchParams.get('insecure') === '1' || url.searchParams.get('insecure') === 'true';
-      const alpn = url.searchParams.get('alpn')?.split(',') || ['h3'];
-      const ports = url.searchParams.get('mport') || url.searchParams.get('ports') || port;
-      const udp = url.searchParams.get('udp') !== 'false';
-      const obfs = url.searchParams.get('obfs') || '';
-      const obfsPassword = url.searchParams.get('obfs-password') || '';
+      if (protocol === 'hysteria2') {
+        const sni = url.searchParams.get('sni') || hostname;
+        const skipCertVerify = url.searchParams.get('insecure') === '1' || url.searchParams.get('insecure') === 'true';
+        const alpn = url.searchParams.get('alpn')?.split(',') || ['h3'];
+        const ports = url.searchParams.get('mport') || url.searchParams.get('ports') || port;
+        const udp = url.searchParams.get('udp') !== 'false';
+        const obfs = url.searchParams.get('obfs') || '';
+        const obfsPassword = url.searchParams.get('obfs-password') || '';
 
-      yamlResult += `  - name: ${name}
+        yamlResult += `  - name: ${name}
     type: hysteria2
     server: ${hostname}
     port: ${mainPort}
@@ -126,16 +122,15 @@ function parseProxyUri(uri: string): string {
     sni: ${url.searchParams.get('sni') || hostname}
 `;
       } else if (protocol === 'ss') {
-        // Handle ss://base64(method:password)@host:port
         let method = 'aes-256-gcm';
         let userPass = url.username;
         if (!userPass.includes(':')) {
-           try {
-             const decoded = atob(userPass);
-             if (decoded.includes(':')) {
-               [method, userPass] = decoded.split(':');
-             }
-           } catch(e) {}
+          try {
+            const decoded = atob(userPass);
+            if (decoded.includes(':')) {
+              [method, userPass] = decoded.split(':');
+            }
+          } catch (e) {}
         } else {
           [method, userPass] = userPass.split(':');
         }
@@ -148,7 +143,6 @@ function parseProxyUri(uri: string): string {
     udp: true
 `;
       } else {
-        // Default fallback
         yamlResult += `  - name: ${name}
     type: ${protocol}
     server: ${hostname}
@@ -170,51 +164,45 @@ export default {
     const url = new URL(request.url);
     const searchParams = url.searchParams;
 
-    // Get the secret from parameters or use a default
+    // Config type: 'stash' for iOS Stash app, default is mihomo/clash-meta
+    const configType = searchParams.get('type')?.toLowerCase() || 'mihomo';
+    const isStash = configType === 'stash';
+
     const providedSecret = searchParams.get('secret') || 'edge-default';
-    
-    // Create an array to store subscription info
+
     const subscriptions: Subscription[] = [];
-    
-    // Iterate over all parameters
+
     for (const [key, value] of searchParams.entries()) {
-      // Basic validation: skip empty keys or values
-      if (!key || !value || key === 'secret' || key === 'proxies') continue;
-      
-      // If the value looks like a URL, treat it as a subscription
+      if (!key || !value || key === 'secret' || key === 'proxies' || key === 'type') continue;
       if (value.startsWith('http://') || value.startsWith('https://')) {
-        subscriptions.push({
-          name: key,
-          url: value
-        });
+        subscriptions.push({ name: key, url: value });
       }
     }
 
     if (subscriptions.length === 0 && !searchParams.get('proxies')) {
-      return new Response('No subscriptions found. Usage: ?secret=YOUR_SECRET&Name1=URL1&proxies=YAML_PROXIES', { status: 400 });
+      return new Response(
+        'No subscriptions found. Usage: ?secret=YOUR_SECRET&Name1=URL1&proxies=YAML_PROXIES&type=stash',
+        { status: 400 }
+      );
     }
 
-    // Get custom proxies from parameter if provided
+    // Parse custom proxies
     let customProxies = searchParams.get('proxies') || '';
     let customProxyNames: string[] = [];
 
     if (customProxies) {
-      // Extract names for the Self-Hosted group
       const lines = customProxies.split(/[|\n]/).filter(l => l.trim());
       for (const line of lines) {
         if (line.includes('#')) {
           customProxyNames.push(decodeURIComponent(line.split('#')[1].trim()));
         } else if (line.startsWith('vmess://')) {
-           try {
-             const vmessData = JSON.parse(atob(line.replace('vmess://', '')));
-             customProxyNames.push(vmessData.ps || 'VMess-Proxy');
-           } catch(e) {}
+          try {
+            const vmessData = JSON.parse(atob(line.replace('vmess://', '')));
+            customProxyNames.push(vmessData.ps || 'VMess-Proxy');
+          } catch (e) {}
         } else {
-           // Try to extract name from raw YAML
-           const nameMatch = line.match(/- name:\s*['"]?([^'"]+)['"]?/);
-           if (nameMatch) {
-             customProxyNames.push(nameMatch[1]);
-           }
+          const nameMatch = line.match(/- name:\s*['"]?([^'"]+)['"]?/);
+          if (nameMatch) customProxyNames.push(nameMatch[1]);
         }
       }
 
@@ -225,23 +213,24 @@ export default {
       }
     }
 
-    // Generate proxy-providers and dynamic groups
+    // Build proxy-providers and dynamic groups
     let proxyProvidersSection = 'proxy-providers:\n';
     let dynamicGroupsSection = '';
     const providerNames: string[] = [];
     const autoGroupNames: string[] = [];
-    
-    subscriptions.forEach((sub, index) => {
+
+    // User-Agent adapts to config type
+    const userAgent = isStash ? 'Stash' : 'clash.meta';
+
+    subscriptions.forEach((sub) => {
       const { name, url: subUrl } = sub;
       providerNames.push(name);
-      
+
       const autoGroupName = `⚡ ${name} 自动选择`;
       autoGroupNames.push(autoGroupName);
 
-      // Use safe name for path
       const safeName = name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-      
-      // Add provider
+
       proxyProvidersSection += `  ${name}:
     type: http
     url: "${subUrl}"
@@ -254,10 +243,9 @@ export default {
       lazy: true
     header:
       User-Agent:
-        - "clash.meta"
+        - "${userAgent}"
 `;
 
-      // Add corresponding groups
       dynamicGroupsSection += `  - name: ${name}
     type: select
     use: [${name}]
@@ -273,32 +261,43 @@ export default {
     const providersList = providerNames.join(', ');
     const autoGroupsList = autoGroupNames.join(', ');
 
-    // Handle Self-Hosted group injection
-    let selfHostedGroupYaml = '';
-    let selfHostedPlaceholder = '';
-    if (customProxyNames.length > 0) {
-      selfHostedGroupYaml = configSelfHostedGroup.replace('{{SELF_HOSTED_LIST}}', customProxyNames.join(', '));
-      selfHostedPlaceholder = 'Self-Hosted';
-    }
+    // Self-hosted group
+    const configSelfHostedGroup = customProxyNames.length > 0
+      ? `  - name: Self-Hosted\n    type: select\n    proxies: [${customProxyNames.join(', ')}]\n`
+      : '';
+    const selfHostedPlaceholder = customProxyNames.length > 0 ? 'Self-Hosted' : '';
 
-    // Replace placeholders in templates
-    const header = configHeader.replace(/{{SECRET}}/g, providedSecret);
-    
-    const groupsHeader = configGroupsHeader
+    // Select the right templates based on config type
+    const tplGroupsHeader = isStash ? configStashGroupsHeader : configMihomoGroupsHeader;
+    const tplGroupsMid = isStash ? configStashGroupsMid : configMihomoGroupsMid;
+    const tplHeader = isStash ? configStashHeader : configMihomoHeader.replace(/{{SECRET}}/g, providedSecret);
+    const tplFooter = isStash ? configStashFooter : configMihomoFooter;
+
+    const fillPlaceholders = (s: string) => s
       .replace(/{{PROVIDERS_LIST}}/g, providersList)
       .replace(/{{AUTO_GROUPS_LIST}}/g, autoGroupsList)
-      .replace(/{{SELF_HOSTED_GROUP}}/g, selfHostedPlaceholder);
-    
-    const groupsMid = configGroupsMid
-      .replace(/{{PROVIDERS_LIST}}/g, providersList)
-      .replace(/{{AUTO_GROUPS_LIST}}/g, autoGroupsList);
+      .replace(/{{SELF_HOSTED_GROUP}}/g, selfHostedPlaceholder)
+      // Clean up any trailing ", ]" or ",  ]" caused by empty placeholders
+      .replace(/,\s*]/g, ']')
+      // Clean up consecutive ", ," from multiple empty expansions
+      .replace(/,\s*,/g, ',');
 
-    // Combine everything
-    const finalYaml = `${header}
-${subscriptions.length > 0 ? proxyProvidersSection : ''}
-${customProxies}
-${groupsHeader}${selfHostedGroupYaml}${dynamicGroupsSection}${groupsMid}
-${configFooter}`;
+    const groupsHeader = fillPlaceholders(tplGroupsHeader);
+    const groupsMid = fillPlaceholders(tplGroupsMid);
+
+    // groupsHeader already starts with "proxy-groups:\n"
+    const finalYaml = [
+      tplHeader,
+      subscriptions.length > 0 ? proxyProvidersSection : '',
+      customProxies,
+      groupsHeader,
+      configSelfHostedGroup,
+      dynamicGroupsSection,
+      groupsMid,
+      tplFooter,
+      configRuleProviders,
+      configRules,
+    ].join('\n');
 
     return new Response(finalYaml, {
       headers: {

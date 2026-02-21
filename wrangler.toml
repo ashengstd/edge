@@ -1,3 +1,7 @@
 name = "edge"
 main = "index.ts"
 compatibility_date = "2025-12-19"
+
+# Wrangler v4 natively bundles TypeScript using esbuild.
+# All imports from templates/ subdirectory are resolved automatically.
+# No custom build step required.
