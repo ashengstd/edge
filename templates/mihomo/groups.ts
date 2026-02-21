@@ -1,7 +1,6 @@
 // Mihomo proxy-groups template
 // Includes relay-based node chain (🔗 节点链) which is Mihomo/Meta-only.
 
-// Header groups: node selection + relay chain
 export const configMihomoGroupsHeader = `proxy-groups:
   - name: 🚀 节点选择
     type: select
@@ -22,7 +21,6 @@ export const configMihomoGroupsHeader = `proxy-groups:
     proxies: [🏮 入口节点, 🛫 出口节点]
 `;
 
-// Mid groups: all functional category groups
 export const configMihomoGroupsMid = `  - name: 🛑 广告拦截
     type: select
     proxies: [REJECT, DIRECT, 🚀 节点选择, {{AUTO_GROUPS_LIST}}]
@@ -67,7 +65,7 @@ export const configMihomoGroupsMid = `  - name: 🛑 广告拦截
     include-all-proxies: true
     use: [{{PROVIDERS_LIST}}]
 
-  - name: 🐱 Github
+  - name: 🐱 开发工具
     type: select
     proxies: [🚀 节点选择, DIRECT, REJECT, {{AUTO_GROUPS_LIST}}]
     include-all-proxies: true
@@ -110,6 +108,12 @@ export const configMihomoGroupsMid = `  - name: 🛑 广告拦截
     use: [{{PROVIDERS_LIST}}]
 
   - name: 📚 教育资源
+    type: select
+    proxies: [🚀 节点选择, DIRECT, REJECT, {{AUTO_GROUPS_LIST}}]
+    include-all-proxies: true
+    use: [{{PROVIDERS_LIST}}]
+
+  - name: 🛠️ 生产力工具
     type: select
     proxies: [🚀 节点选择, DIRECT, REJECT, {{AUTO_GROUPS_LIST}}]
     include-all-proxies: true

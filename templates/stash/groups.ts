@@ -1,22 +1,5 @@
 // Stash iOS proxy-groups template
-//
-// Node chain implementation for Stash:
-// Stash supports dialer-proxy (https://stash.wiki/en/proxy-protocols/dialer-proxy)
-// which can reference a strategy group as its upstream.
-//
-// To use node chaining in Stash:
-//   1. In your proxy config, add "dialer-proxy: 🏮 入口节点" to your exit proxy
-//   2. The exit proxy will then tunnel through whichever node is selected in 🏮 入口节点
-//
-// Example in proxies section:
-//   - name: My-Exit-Node
-//     type: vless
-//     server: exit.example.com
-//     port: 443
-//     ...
-//     dialer-proxy: "🏮 入口节点"   <-- traffic goes through 入口节点 first
-//
-// Note: relay proxy-group type is NOT supported in Stash.
+// No relay type. Uses 入口节点/出口节点 for dialer-proxy chaining.
 
 export const configStashGroupsHeader = `proxy-groups:
   - name: 🚀 节点选择
@@ -35,7 +18,6 @@ export const configStashGroupsHeader = `proxy-groups:
     proxies: [DIRECT, {{AUTO_GROUPS_LIST}}, {{PROVIDERS_LIST}}, {{SELF_HOSTED_GROUP}}]
 `;
 
-// Stash mid groups — same categories as Mihomo
 export const configStashGroupsMid = `  - name: 🛑 广告拦截
     type: select
     proxies: [REJECT, DIRECT, 🚀 节点选择, {{AUTO_GROUPS_LIST}}]
@@ -80,7 +62,7 @@ export const configStashGroupsMid = `  - name: 🛑 广告拦截
     include-all-proxies: true
     use: [{{PROVIDERS_LIST}}]
 
-  - name: 🐱 Github
+  - name: 🐱 开发工具
     type: select
     proxies: [🚀 节点选择, DIRECT, REJECT, {{AUTO_GROUPS_LIST}}]
     include-all-proxies: true
@@ -123,6 +105,12 @@ export const configStashGroupsMid = `  - name: 🛑 广告拦截
     use: [{{PROVIDERS_LIST}}]
 
   - name: 📚 教育资源
+    type: select
+    proxies: [🚀 节点选择, DIRECT, REJECT, {{AUTO_GROUPS_LIST}}]
+    include-all-proxies: true
+    use: [{{PROVIDERS_LIST}}]
+
+  - name: 🛠️ 生产力工具
     type: select
     proxies: [🚀 节点选择, DIRECT, REJECT, {{AUTO_GROUPS_LIST}}]
     include-all-proxies: true

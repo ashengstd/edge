@@ -1,12 +1,12 @@
 // Shared rule-providers definition (used by both Mihomo and Stash)
-// All providers use format: yaml, which is supported by both platforms.
+// All providers verified against local meta-rules-dat (MetaCubeX/meta-rules-dat@meta branch).
 //
-// Individual AI providers (openai/anthropic/google-gemini/deepseek/perplexity)
-// are kept because the Mihomo DNS nameserver-policy references them.
-// category-ai-chat-!cn handles routing; individual sets handle DNS.
+// VERIFIED MISSING (removed):
+//   - privacy: does not exist in meta branch → replaced by win-spy/win-extra/win-update
+//   - applemusic: does not exist in meta branch → apple rule covers the domains
 //
-// github removed — covered by category-dev.
-// netflix/disney/hbo/spotify/steam removed — covered by category-media/category-games.
+// Individual AI providers (openai/anthropic/etc.) kept for Mihomo DNS nameserver-policy.
+// category-ai-chat-!cn handles routing; individual sets handle DNS precision.
 
 export const configRuleProviders = `rule-providers:
   # -- 隐私 & 广告拦截 -----------------------------------------
@@ -26,15 +26,32 @@ export const configRuleProviders = `rule-providers:
     path: ./ruleset/advertising.yaml
     interval: 86400
 
-  privacy:
+  # Windows 遥测 & 追踪拦截（替代不存在的 privacy 规则集）
+  win-spy:
     type: http
     format: yaml
     behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/privacy.yaml"
-    path: ./ruleset/privacy.yaml
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/win-spy.yaml"
+    path: ./ruleset/win-spy.yaml
     interval: 86400
 
-  # -- AI 服务 (DNS policy 需要独立集，路由由 category 统一处理) --
+  win-extra:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/win-extra.yaml"
+    path: ./ruleset/win-extra.yaml
+    interval: 86400
+
+  win-update:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/win-update.yaml"
+    path: ./ruleset/win-update.yaml
+    interval: 86400
+
+  # -- AI 服务 (DNS policy 用独立集，路由由 category 统一处理) --
   category-ai-chat-!cn:
     type: http
     format: yaml
@@ -83,6 +100,55 @@ export const configRuleProviders = `rule-providers:
     path: ./ruleset/perplexity.yaml
     interval: 86400
 
+  xai:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/xai.yaml"
+    path: ./ruleset/xai.yaml
+    interval: 86400
+
+  # AI 编辑器
+  cursor:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/cursor.yaml"
+    path: ./ruleset/cursor.yaml
+    interval: 86400
+
+  windsurf:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/windsurf.yaml"
+    path: ./ruleset/windsurf.yaml
+    interval: 86400
+
+  trae:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/trae.yaml"
+    path: ./ruleset/trae.yaml
+    interval: 86400
+
+  manus:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/manus.yaml"
+    path: ./ruleset/manus.yaml
+    interval: 86400
+
+  jetbrains-ai:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/jetbrains-ai.yaml"
+    path: ./ruleset/jetbrains-ai.yaml
+    interval: 86400
+
   # -- 流媒体 (category-media 覆盖 netflix/disney/hbo/spotify 等) --
   youtube:
     type: http
@@ -100,6 +166,30 @@ export const configRuleProviders = `rule-providers:
     path: ./ruleset/category-media.yaml
     interval: 86400
 
+  twitch:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/twitch.yaml"
+    path: ./ruleset/twitch.yaml
+    interval: 86400
+
+  biliintl:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/biliintl.yaml"
+    path: ./ruleset/biliintl.yaml
+    interval: 86400
+
+  category-entertainment:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-entertainment.yaml"
+    path: ./ruleset/category-entertainment.yaml
+    interval: 86400
+
   # -- 苹果服务 ------------------------------------------------
   apple:
     type: http
@@ -115,14 +205,6 @@ export const configRuleProviders = `rule-providers:
     behavior: domain
     url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/apple-tvplus.yaml"
     path: ./ruleset/appletv.yaml
-    interval: 86400
-
-  applemusic:
-    type: http
-    format: yaml
-    behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/applemusic.yaml"
-    path: ./ruleset/applemusic.yaml
     interval: 86400
 
   # -- 谷歌服务 ------------------------------------------------
@@ -143,7 +225,23 @@ export const configRuleProviders = `rule-providers:
     path: ./ruleset/microsoft.yaml
     interval: 86400
 
-  # -- 开发工具（含 Github）------------------------------------
+  microsoft-dev:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/microsoft-dev.yaml"
+    path: ./ruleset/microsoft-dev.yaml
+    interval: 86400
+
+  onedrive:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/onedrive.yaml"
+    path: ./ruleset/onedrive.yaml
+    interval: 86400
+
+  # -- 开发工具（含 Github / Gitlab / Docker / JetBrains）------
   category-dev:
     type: http
     format: yaml
@@ -152,7 +250,31 @@ export const configRuleProviders = `rule-providers:
     path: ./ruleset/category-dev.yaml
     interval: 86400
 
-  # -- 社交媒体（含 twitter/fb/discord/tiktok 等）--------------
+  gitlab:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/gitlab.yaml"
+    path: ./ruleset/gitlab.yaml
+    interval: 86400
+
+  docker:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/docker.yaml"
+    path: ./ruleset/docker.yaml
+    interval: 86400
+
+  jetbrains:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/jetbrains.yaml"
+    path: ./ruleset/jetbrains.yaml
+    interval: 86400
+
+  # -- 电报 & 即时通讯 -----------------------------------------
   telegram:
     type: http
     format: yaml
@@ -161,6 +283,31 @@ export const configRuleProviders = `rule-providers:
     path: ./ruleset/telegram.yaml
     interval: 86400
 
+  signal:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/signal.yaml"
+    path: ./ruleset/signal.yaml
+    interval: 86400
+
+  whatsapp:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/whatsapp.yaml"
+    path: ./ruleset/whatsapp.yaml
+    interval: 86400
+
+  line:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/line.yaml"
+    path: ./ruleset/line.yaml
+    interval: 86400
+
+  # -- 社交媒体 (category 已含 twitter/fb/ig/tiktok/discord) ---
   category-social-media-!cn:
     type: http
     format: yaml
@@ -169,7 +316,106 @@ export const configRuleProviders = `rule-providers:
     path: ./ruleset/category-social-media-!cn.yaml
     interval: 86400
 
-  # -- 游戏平台（含 steam/epic/ea/blizzard 等）-----------------
+  twitter:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/twitter.yaml"
+    path: ./ruleset/twitter.yaml
+    interval: 86400
+
+  tiktok:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/tiktok.yaml"
+    path: ./ruleset/tiktok.yaml
+    interval: 86400
+
+  discord:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/discord.yaml"
+    path: ./ruleset/discord.yaml
+    interval: 86400
+
+  reddit:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/reddit.yaml"
+    path: ./ruleset/reddit.yaml
+    interval: 86400
+
+  bluesky:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/bluesky.yaml"
+    path: ./ruleset/bluesky.yaml
+    interval: 86400
+
+  # -- 生产力工具 -----------------------------------------------
+  slack:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/slack.yaml"
+    path: ./ruleset/slack.yaml
+    interval: 86400
+
+  zoom:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/zoom.yaml"
+    path: ./ruleset/zoom.yaml
+    interval: 86400
+
+  dropbox:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/dropbox.yaml"
+    path: ./ruleset/dropbox.yaml
+    interval: 86400
+
+  mega:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/mega.yaml"
+    path: ./ruleset/mega.yaml
+    interval: 86400
+
+  # -- 隐私邮件 ------------------------------------------------
+  protonmail:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/protonmail.yaml"
+    path: ./ruleset/protonmail.yaml
+    interval: 86400
+
+  tutanota:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/tutanota.yaml"
+    path: ./ruleset/tutanota.yaml
+    interval: 86400
+
+  # -- 支付 ----------------------------------------------------
+  paypal:
+    type: http
+    format: yaml
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/paypal.yaml"
+    path: ./ruleset/paypal.yaml
+    interval: 86400
+
+  # -- 游戏平台（category-games 已含 steam/epic/ea/blizzard 等）-
   category-games:
     type: http
     format: yaml
