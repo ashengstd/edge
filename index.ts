@@ -72,11 +72,11 @@ function parseProxyUri(uri: string): string {
         const obfs = url.searchParams.get('obfs') || '';
         const obfsPassword = url.searchParams.get('obfs-password') || '';
 
+        const isPortRange = ports && ports.includes('-');
         yamlResult += `  - name: ${name}
     type: hysteria2
     server: ${hostname}
-    port: ${mainPort}
-    password: ${password}
+${isPortRange ? '' : `    port: ${mainPort}\n`}    password: ${password}
     sni: ${sni}
     skip-cert-verify: ${skipCertVerify}
     alpn: [${alpn.join(', ')}]
