@@ -491,4 +491,59 @@ export const configRuleProviders = `rule-providers:
     url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/cn.mrs"
     path: ./ruleset/cn.mrs
     interval: 86400
+
+  # GeoIP 国内 IP 段（ipcidr）——解决 CN 应用直接用 IP 连接绕过域名规则的问题
+  # 腾讯会议等 App 的媒体流量直接连国内 IP（中国移动/联通等），需要此规则兜底直连
+  cn-ip:
+    type: http
+    format: mrs
+    behavior: ipcidr
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/cn.mrs"
+    path: ./ruleset/cn-ip.mrs
+    interval: 86400
+
+  # Telegram DC 服务器 IP（Telegram 媒体传输直接走 IP，域名规则覆盖不到）
+  telegram-ip:
+    type: http
+    format: mrs
+    behavior: ipcidr
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/telegram.mrs"
+    path: ./ruleset/telegram-ip.mrs
+    interval: 86400
+
+  # Netflix CDN IP 段（流媒体解锁节点需要精确匹配）
+  netflix-ip:
+    type: http
+    format: mrs
+    behavior: ipcidr
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/netflix.mrs"
+    path: ./ruleset/netflix-ip.mrs
+    interval: 86400
+
+  # Google IP 段（部分 Google 服务直接用 IP 连接）
+  google-ip:
+    type: http
+    format: mrs
+    behavior: ipcidr
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/google.mrs"
+    path: ./ruleset/google-ip.mrs
+    interval: 86400
+
+  # Twitter/X IP 段
+  twitter-ip:
+    type: http
+    format: mrs
+    behavior: ipcidr
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/twitter.mrs"
+    path: ./ruleset/twitter-ip.mrs
+    interval: 86400
+
+  # Cloudflare IP 段（补充域名规则之外的直接 IP 流量）
+  cloudflare-ip:
+    type: http
+    format: mrs
+    behavior: ipcidr
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/cloudflare.mrs"
+    path: ./ruleset/cloudflare-ip.mrs
+    interval: 86400
 `;

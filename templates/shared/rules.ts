@@ -47,12 +47,15 @@ export const configRules = `rules:
   # 国内直连
   - RULE-SET,geolocation-cn,🔒 国内服务
   - RULE-SET,cn,🔒 国内服务,no-resolve
+  # GeoIP 国内 IP 段兼底（解决腾讯会议等直连 IP 被漏网之鱼匹配的问题）
+  - RULE-SET,cn-ip,🔒 国内服务,no-resolve
 
   # 苹果视频优先（在 apple 整体前）
   - RULE-SET,appletv,🎬 苹果视频
 
   # 谷歌 / 苹果 / 微软
   - RULE-SET,google,🔍 谷歌服务
+  - RULE-SET,google-ip,🔍 谷歌服务,no-resolve
   - RULE-SET,apple,🍏 苹果服务
   - RULE-SET,onedrive,Ⓜ️ 微软服务
   - RULE-SET,microsoft,Ⓜ️ 微软服务
@@ -75,16 +78,19 @@ export const configRules = `rules:
 
   # 即时通讯（category-voip 覆盖 telegram/signal/whatsapp/line/zoom/webex 等）
   - RULE-SET,category-voip,📲 电报消息
+  - RULE-SET,telegram-ip,📲 电报消息,no-resolve
 
   # 油管
   - RULE-SET,youtube,📹 油管视频
 
   # 流媒体（category-entertainment@!cn 覆盖 netflix/spotify/twitch/biliintl 等）
   - RULE-SET,category-entertainment@!cn,🎬 流媒体
+  - RULE-SET,netflix-ip,🎬 流媒体,no-resolve
 
   # 社交媒体（category-social-media-!cn 覆盖 twitter/fb/ig/tiktok/discord 等）
   - RULE-SET,category-forums,🌐 社交媒体
   - RULE-SET,category-social-media-!cn,🌐 社交媒体
+  - RULE-SET,twitter-ip,🌐 社交媒体,no-resolve
 
   # 游戏平台（category-games-!cn 仅境外，避免误伤国内游戏）
   - RULE-SET,category-games-!cn,🎮 游戏平台
@@ -118,6 +124,7 @@ export const configRules = `rules:
 
   # 云服务 / Cloudflare
   - RULE-SET,cloudflare,☁️ 云服务
+  - RULE-SET,cloudflare-ip,☁️ 云服务,no-resolve
 
   # 非中国兜底
   - RULE-SET,geolocation-!cn,🌐 非中国
