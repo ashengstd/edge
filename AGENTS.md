@@ -50,8 +50,8 @@ Mihomo 和 Stash **完整版**共用的规则，不要在这里做 iOS 专属优
 
 | 文件 | 说明 |
 |---|---|
-| `rule-providers.ts` | 42 个 rule-providers（MRS 格式，MetaCubeX/meta-rules-dat） |
-| `rules.ts` | 与 42 个 provider 对应的路由规则，顺序从最具体到最宽泛 |
+| `rule-providers.ts` | 48 个 rule-providers（domain 类 + GeoIP ipcidr 类，MRS 格式，MetaCubeX/meta-rules-dat） |
+| `rules.ts` | 与 providers 对应的路由规则，顺序从最具体到最宽泛 |
 
 ### `templates/mihomo/`
 
@@ -75,15 +75,17 @@ Mihomo 和 Stash **完整版**共用的规则，不要在这里做 iOS 专属优
 
 | 文件 | 内容 |
 |---|---|
-| `rule-providers-mini.ts` | **15 个** providers（完整版 42 个） |
-| `rules-mini.ts` | 与 15 个 provider 对应的路由规则 |
+| `rule-providers-mini.ts` | **16 个** providers（完整版 48 个） |
+| `rules-mini.ts` | 与 16 个 provider 对应的路由规则 |
 | `groups-mini.ts` | **13 个**静态分组（完整版 24 个） |
 
-**保留的 15 个 providers：**
+**保留的 16 个 providers：**
 `advertising`, `category-ai-chat-!cn`, `youtube`, `category-entertainment@!cn`,
 `category-voip`, `category-social-media-!cn`, `apple`, `google`, `microsoft`,
 `category-dev`, `category-games-!cn`, `cloudflare`, `private`,
-`geolocation-cn`, `geolocation-!cn`
+`geolocation-cn`, `geolocation-!cn`, `cn-ip`
+
+> ℹ️ `cn-ip`（`behavior: ipcidr`）是必要保留的 GeoIP 规则——腾讯会议等 CN App 媒体流量会直接走国内 IP，域名规则覆盖不到。
 
 **精简原则：**
 > 删除后流量走 `geolocation-!cn → 代理` 兜底，路由行为正确。
@@ -134,7 +136,8 @@ bun local-test.ts
 2. **单独 provider 只在以下情况保留：**
    - 需要 DNS `nameserver-policy` 精确匹配（仅 Mihomo）
    - 需要与同类别其他域名路由到不同策略组
-3. **Mini 版额外原则：** 删除所有在 iOS 上不常用的 provider，宁可走兜底也不占内存
+3. **Mini 版额外原则：** 删除所有在 iOS 上不常用或已被 category 覆盖的 provider，宁可走底也不占内存
+4. **GeoIP 规则（`behavior: ipcidr`）必须配 `no-resolve`：** 让域名流量由域名规则处理，IP 流量才由 GeoIP 规则匹配。每个 GeoIP 规则紧跟对应的域名规则之后。
 
 ---
 
