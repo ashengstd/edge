@@ -1,64 +1,103 @@
-# Clash Configuration Generator (Edge)
+# Edge — Clash 订阅转换器
 
-A Cloudflare Worker-based subscription converter and configuration generator for Clash/Meta.
+基于 Cloudflare Workers 的代理订阅转换器，支持 Mihomo（Clash Meta）与 Stash iOS。
 
-## Features
+## 功能
 
-- **Multi-Subscription Support**: Combine multiple subscription URLs.
-- **Dynamic Provider Groups**: Automatically generates `proxy-providers` for each subscription.
-- **Split Auto-Grouping**: Creates individual `url-test` groups for each provider for better performance monitoring.
-- **Hysteria2 Support**: Built-in parser for Hysteria2 URIs.
-- **Optimized Templates**: Uses a separate template system for clean configuration management.
-- **Node Chains (Relay)**: Support for traffic relaying through multiple nodes.
-- **TypeScript**: Fully typed codebase for reliability.
+- **多订阅合并**：将多个机场订阅合并为一份配置，每个订阅独立 `proxy-provider`
+- **自建节点**：支持在 `proxy.yaml` 中直接写 URI，自动解析为 Clash 格式
+- **三种配置模式**：Mihomo / Stash iOS / Stash iOS Mini（<50 MB）
+- **节点链（Relay）**：通过 `🏮 入口节点 → 🛫 出口节点` 实现多跳中转
+- **精细分流**：40+ 条 rule-set 按 AI / 流媒体 / 社交 / 开发工具等分组路由
 
-## Features
+## 快速开始
 
-### Node Chains (Relay)
+### 1. 配置
 
-The "Node Chain" (🔗 节点链) is a special proxy group type called `relay`. It allows you to chain multiple proxies together. Traffic will go through each proxy in the order they are listed.
+```bash
+cp example.yaml proxy.yaml
+# 编辑 proxy.yaml，填写 worker 地址、订阅 URL 和自建节点
+```
 
-- **How it works**: In the `template.ts`, the `🔗 节点链` group is configured to use `🚀 节点选择` and `{{AUTO_GROUPS_LIST}}`.
-- **Order of Traffic**: Traffic -> Node 1 (Entry) -> Node 2 (Exit) -> Destination.
-- **Use Case**: This is particularly useful for hiding your final exit node from your local ISP or for bypassing certain regional restrictions by using multiple hops.
+### 2. 生成订阅 URL
 
-## Usage
+```bash
+bun gen-url.ts                    # Mihomo / Clash Meta（默认）
+bun gen-url.ts --type stash       # Stash iOS 完整版
+bun gen-url.ts --type stash-mini  # Stash iOS 内存优化版（<50 MB）
+```
 
-Deploy as a Cloudflare Worker and access via URL parameters:
-
-`https://your-worker.workers.dev/?secret=YOUR_SECRET&Provider1=URL1&Provider2=URL2&proxies=CUSTOM_YAML_OR_URI`
-
-### Parameters
-
-- `secret`: (Optional) The secret to be used in the generated Clash configuration (e.g., for external control). Defaults to `edge-default`.
-- `[ProviderName]=[SubscriptionURL]`: Add any number of subscriptions.
-- `proxies`: (Optional) Add custom YAML proxies or a Hysteria2 URI.
-
-## Development
-
-### Setup
-
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-2. Local testing:
-   ```bash
-   npm test
-   ```
-
-### Project Structure
-
-- `index.ts`: Main Worker entry point.
-- `template.ts`: YAML configuration templates.
-- `local-test.ts`: Test script for local development.
-- `wrangler.toml`: Cloudflare Workers configuration.
-
-## Deployment
-
-Deploy using Wrangler:
+### 3. 部署 Worker
 
 ```bash
 npx wrangler deploy
+```
+
+## Worker URL 参数
+
+| 参数 | 必填 | 说明 |
+|---|---|---|
+| `type` | 否 | `mihomo`（默认）/ `stash` / `stash-mini` |
+| `secret` | 否 | Mihomo external-controller 密码 |
+| `[ProviderName]` | 至少一个 | 订阅 URL，例如 `Airport1=https://...` |
+| `proxies` | 否 | 自建节点 URI，多个用 `\n` 分隔 |
+
+**示例 URL：**
+```
+https://your-worker.workers.dev/?type=stash-mini&secret=xxx&Airport1=https://sub.example.com/token
+```
+
+## 配置模式对比
+
+| 模式 | Rule Providers | Proxy Groups | 适用场景 |
+|---|---|---|---|
+| `mihomo` | 42 | 24 | 桌面端 Mihomo / Clash Meta |
+| `stash` | 42 | 24 | iOS Stash（内存充足） |
+| `stash-mini` | **15** | **13** | iOS Stash（Network Extension <50 MB） |
+
+### stash-mini 精简内容
+
+相比完整版，mini 版删除了以下 rule-provider（流量均由 `geolocation-!cn` 兜底代理）：
+
+- Windows 遥测 / 更新（iOS 无关）
+- AI 子品牌（openai/anthropic/gemini 等，由 `category-ai-chat-!cn` 覆盖）
+- AI 编辑器（cursor/windsurf/trae/manus 等）
+- 开发细分（container/jetbrains/gitlab，由 `category-dev` 覆盖）
+- 生产力工具（dropbox/mega/protonmail/tutanota/slack/密码管理器）
+- 金融 / 加密货币 / 新闻 / 成人 / BT-PT / 测速 / NTP
+
+## 项目结构
+
+```
+.
+├── index.ts                          # Worker 入口（路由 & 模板组装）
+├── gen-url.ts                        # 本地 URL 生成工具
+├── local-test.ts                     # 本地测试脚本
+├── example.yaml                      # 配置文件模板
+├── proxy.yaml                        # 你的本地配置（gitignored）
+├── templates/
+│   ├── shared/
+│   │   ├── rule-providers.ts         # 42 个 rule-providers（Mihomo & Stash 共用）
+│   │   └── rules.ts                  # 路由规则
+│   ├── mihomo/
+│   │   ├── header.ts                 # Mihomo 专属头部配置
+│   │   ├── groups.ts                 # Mihomo proxy-groups
+│   │   └── footer.ts                 # Mihomo DNS & sniffer
+│   └── stash/
+│       ├── header.ts                 # Stash 专属头部配置
+│       ├── groups.ts                 # Stash proxy-groups
+│       ├── footer.ts                 # Stash DNS 配置
+│       └── mini/
+│           ├── rule-providers-mini.ts # 15 个 rule-providers
+│           ├── rules-mini.ts          # 精简路由规则
+│           └── groups-mini.ts         # 13 个 proxy-groups
+└── wrangler.toml                     # Cloudflare Workers 配置
+```
+
+## 本地开发
+
+```bash
+bun install
+bun local-test.ts        # 生成 output.yaml 并预览 proxy-groups
+npx wrangler dev         # 本地启动 Worker（监听 localhost:8787）
 ```
