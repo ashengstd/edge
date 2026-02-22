@@ -1,13 +1,20 @@
 // Mihomo proxy-groups template
-// Includes relay-based node chain (🔗 节点链) which is Mihomo/Meta-only.
+// Node chain uses dialer-proxy (relay type was deprecated in Mihomo 1.19+).
 
 export const configMihomoGroupsHeader = `proxy-groups:
   - name: 🚀 节点选择
     type: select
     proxies: [DIRECT, REJECT, 🔗 节点链, {{AUTO_GROUPS_LIST}}, {{PROVIDERS_LIST}}, {{SELF_HOSTED_GROUP}}]
 
+  # 节点链：使用 dialer-proxy 替代已废弃的 relay 类型
+  # 流量路径：🔗 节点链 → 🏮 入口节点 --dialer-proxy--> 🛫 出口节点
+  - name: 🔗 节点链
+    type: select
+    proxies: [🏮 入口节点]
+
   - name: 🏮 入口节点
     type: select
+    dialer-proxy: 🛫 出口节点
     include-all-proxies: true
     proxies: [DIRECT, {{AUTO_GROUPS_LIST}}, {{PROVIDERS_LIST}}, {{SELF_HOSTED_GROUP}}]
 
@@ -15,10 +22,6 @@ export const configMihomoGroupsHeader = `proxy-groups:
     type: select
     include-all-proxies: true
     proxies: [DIRECT, {{AUTO_GROUPS_LIST}}, {{PROVIDERS_LIST}}, {{SELF_HOSTED_GROUP}}]
-
-  - name: 🔗 节点链
-    type: relay
-    proxies: [🏮 入口节点, 🛫 出口节点]
 `;
 
 export const configMihomoGroupsMid = `  - name: 🛑 广告拦截
