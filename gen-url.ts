@@ -4,12 +4,14 @@ import fs from 'fs';
  * URL Generation Utility
  * Reads proxy.yaml and generates a Cloudflare Worker subscription URL.
  * 
- * Usage: bun gen-url.ts [--stash]
- *   --stash   Generate a Stash/iOS compatible URL (adds type=stash)
+ * Usage: bun gen-url.ts [--stash] [--stash-mini]
+ *   --stash       Generate a Stash/iOS compatible URL (adds type=stash)
+ *   --stash-mini  Generate a Stash/iOS low-memory URL (adds type=stash-mini, <50MB)
  */
 
 function generateUrl() {
     const isStash = process.argv.includes('--stash');
+    const isStashMini = process.argv.includes('--stash-mini');
     const configFile = 'proxy.yaml';
 
     if (!fs.existsSync(configFile)) {
@@ -55,7 +57,8 @@ function generateUrl() {
 
     const params = new URLSearchParams();
     if (secret) params.set('secret', secret);
-    if (isStash) params.set('type', 'stash');
+    if (isStashMini) params.set('type', 'stash-mini');
+    else if (isStash) params.set('type', 'stash');
 
     // Add subscription providers
     for (const p of providers) {
@@ -145,7 +148,8 @@ function generateUrl() {
     const finalUrl = `${base}/?${params.toString()}`;
 
     console.log('\n\x1b[32m✔ Worker URL Generated Successfully!\x1b[0m');
-    if (isStash) console.log('\x1b[35m  Mode: Stash/iOS\x1b[0m');
+    if (isStashMini) console.log('\x1b[35m  Mode: Stash/iOS Mini (low-memory, <50MB)\x1b[0m');
+    else if (isStash) console.log('\x1b[35m  Mode: Stash/iOS\x1b[0m');
     console.log('\x1b[36m' + finalUrl + '\x1b[0m\n');
 }
 

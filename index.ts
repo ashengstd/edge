@@ -4,6 +4,9 @@ import { configMihomoFooter } from './templates/mihomo/footer';
 import { configStashHeader } from './templates/stash/header';
 import { configStashGroupsHeader, configStashGroupsMid } from './templates/stash/groups';
 import { configStashFooter } from './templates/stash/footer';
+import { configStashMiniGroupsHeader, configStashMiniGroupsMid } from './templates/stash/mini/groups-mini';
+import { configStashMiniRuleProviders } from './templates/stash/mini/rule-providers-mini';
+import { configStashMiniRules } from './templates/stash/mini/rules-mini';
 import { configRuleProviders } from './templates/shared/rule-providers';
 import { configRules } from './templates/shared/rules';
 
@@ -164,9 +167,10 @@ export default {
     const url = new URL(request.url);
     const searchParams = url.searchParams;
 
-    // Config type: 'stash' for iOS Stash app, default is mihomo/clash-meta
+    // Config type: 'stash' for iOS Stash app, 'stash-mini' for low-memory iOS (<50MB), default is mihomo/clash-meta
     const configType = searchParams.get('type')?.toLowerCase() || 'mihomo';
     const isStash = configType === 'stash';
+    const isStashMini = configType === 'stash-mini';
 
     const providedSecret = searchParams.get('secret') || 'edge-default';
 
@@ -220,7 +224,7 @@ export default {
     const autoGroupNames: string[] = [];
 
     // User-Agent adapts to config type
-    const userAgent = isStash ? 'Stash' : 'clash.meta';
+    const userAgent = (isStash || isStashMini) ? 'Stash' : 'clash.meta';
 
     subscriptions.forEach((sub) => {
       const { name, url: subUrl } = sub;
@@ -268,10 +272,12 @@ export default {
     const selfHostedPlaceholder = customProxyNames.length > 0 ? 'Self-Hosted' : '';
 
     // Select the right templates based on config type
-    const tplGroupsHeader = isStash ? configStashGroupsHeader : configMihomoGroupsHeader;
-    const tplGroupsMid = isStash ? configStashGroupsMid : configMihomoGroupsMid;
-    const tplHeader = isStash ? configStashHeader : configMihomoHeader.replace(/{{SECRET}}/g, providedSecret);
-    const tplFooter = isStash ? configStashFooter : configMihomoFooter;
+    const tplGroupsHeader = isStashMini ? configStashMiniGroupsHeader : isStash ? configStashGroupsHeader : configMihomoGroupsHeader;
+    const tplGroupsMid = isStashMini ? configStashMiniGroupsMid : isStash ? configStashGroupsMid : configMihomoGroupsMid;
+    const tplHeader = (isStash || isStashMini) ? configStashHeader : configMihomoHeader.replace(/{{SECRET}}/g, providedSecret);
+    const tplFooter = (isStash || isStashMini) ? configStashFooter : configMihomoFooter;
+    const tplRuleProviders = isStashMini ? configStashMiniRuleProviders : configRuleProviders;
+    const tplRules = isStashMini ? configStashMiniRules : configRules;
 
     const fillPlaceholders = (s: string) => s
       .replace(/{{PROVIDERS_LIST}}/g, providersList)
@@ -295,8 +301,8 @@ export default {
       dynamicGroupsSection,
       groupsMid,
       tplFooter,
-      configRuleProviders,
-      configRules,
+      tplRuleProviders,
+      tplRules,
     ].join('\n');
 
     return new Response(finalYaml, {

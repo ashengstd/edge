@@ -1,8 +1,9 @@
 # ============================================================
 # proxy.yaml — 订阅转换器配置文件
 # 使用方法：
-#   bun gen-url.ts          # 生成 Mihomo/Clash Meta 订阅链接
-#   bun gen-url.ts --stash  # 生成 Stash/iOS 订阅链接
+#   bun gen-url.ts               # 生成 Mihomo/Clash Meta 订阅链接
+#   bun gen-url.ts --stash       # 生成 Stash/iOS 订阅链接（完整版）
+#   bun gen-url.ts --stash-mini  # 生成 Stash/iOS 订阅链接（内存优化版，<50MB）
 # ============================================================
 
 # Worker 部署地址（必填，改为你自己的域名）
