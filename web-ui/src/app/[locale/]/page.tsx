@@ -3,8 +3,11 @@ import { useState, useEffect } from 'react';
 import SubscriptionPanel, { Subscription } from '@/components/SubscriptionPanel';
 import NodeModal from '@/components/NodeModal';
 import ActionBox from '@/components/ActionBox';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { useTranslations } from 'next-intl';
 
 export default function Home() {
+  const t = useTranslations('Index');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [proxiesText, setProxiesText] = useState('');
   const [subs, setSubs] = useState<Subscription[]>([]);
@@ -28,15 +31,20 @@ export default function Home() {
 
   return (
     <main className="w-full max-w-2xl bg-white dark:bg-slate-800 p-6 sm:p-10 rounded-2xl shadow-xl border border-gray-200 dark:border-slate-700 animate-slideup relative overflow-hidden">
-        
+      
+      {/* Top Controls */}
+      <div className="absolute top-6 right-6 z-10">
+        <LanguageSwitcher />
+      </div>
+
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
         <div>
           <h1 className="text-3xl font-extrabold mb-2 bg-gradient-to-br from-blue-600 to-purple-500 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent tracking-tight">
-            Edge Subscription
+            {t('title')}
           </h1>
           <p className="text-gray-500 dark:text-slate-400 text-sm sm:text-base">
-            Convert your proxy endpoints & external subscriptions into Cloudflare configurations
+            {t('description')}
           </p>
         </div>
         <button 
@@ -46,7 +54,7 @@ export default function Home() {
           <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
           </svg>
-          Add Node Link
+          {t('addNode')}
         </button>
       </div>
 
@@ -54,15 +62,15 @@ export default function Home() {
       <div className="mb-6 space-y-2">
         <div className="flex items-center justify-between">
           <label htmlFor="proxies" className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-            Self-Hosted Proxies
+            {t('proxiesLabel')}
           </label>
-          <span className="text-xs text-gray-400 dark:text-slate-500">vless, hysteria2, tuic...</span>
+          <span className="text-xs text-gray-400 dark:text-slate-500">{t('proxiesSubLabel')}</span>
         </div>
         <textarea 
           id="proxies-textarea"
           value={proxiesText}
           onChange={(e) => setProxiesText(e.target.value)}
-          placeholder={`Paste your individual proxy uris here separated by newline...\nFor example:\ntuic://uuid:password@host:port...`}
+          placeholder={t('proxiesPlaceholder')}
           spellCheck="false"
           className="w-full min-h-[140px] p-4 bg-gray-50 dark:bg-slate-900 border border-gray-300 dark:border-slate-600 rounded-xl text-gray-800 dark:text-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-mono resize-y"
         />
@@ -74,7 +82,7 @@ export default function Home() {
       {/* Target Target Configuration */}
       <div className="mb-8 space-y-2">
         <label htmlFor="configType" className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-          Template Configuration
+          {t('templateLabel')}
         </label>
         <div className="relative">
           <select 
