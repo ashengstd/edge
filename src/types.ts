@@ -70,7 +70,7 @@ export const TuicSchema = BaseProxySchema.extend({
   "udp-relay-mode": z.string().optional(),
   "congestion-controller": z.string().optional(),
   "skip-cert-verify": z.boolean().optional(),
-  ip: z.string().optional(),
+  ip: z.union([z.string(), z.array(z.string())]).optional(),
 });
 
 export const WireguardSchema = BaseProxySchema.extend({
@@ -92,7 +92,7 @@ export const AnyProxySchema = z.discriminatedUnion("type", [
   VmessSchema,
   TuicSchema,
   WireguardSchema,
-]).or(BaseProxySchema.extend({ type: z.string() }).loose());
+]);
 
 export type ProxyNode = z.infer<typeof AnyProxySchema>;
 

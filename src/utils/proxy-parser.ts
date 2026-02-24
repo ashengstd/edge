@@ -134,7 +134,7 @@ export function parseProxyUri(uri: string): string {
 
         } else if (protocol === 'tuic') {
           node.uuid = url.username;
-          node.password = password;
+          node.password = url.password || password; // Try URL native, otherwise fallback to `password` variable
           node.sni = url.searchParams.get('sni') || hostname;
           node.alpn = url.searchParams.get('alpn')?.split(',') || ['h3'];
           node['skip-cert-verify'] = url.searchParams.get('insecure') === '1' || url.searchParams.get('insecure') === 'true';
@@ -188,9 +188,9 @@ export function parseProxyUri(uri: string): string {
       parsedNodes.push(validatedNode);
 
     } catch (e) {
-      if (!u.includes('://')) {
-        rawLines.push(trimmedUri.startsWith('  -') ? trimmedUri : `  - ${trimmedUri}`);
-      }
+      // If it fails any kind of parsing (Invalid URL, Zod Schema mismatch, Base64 decode error)
+      // gracefully append the raw line
+      rawLines.push(trimmedUri.startsWith('  -') ? trimmedUri : `  - ${trimmedUri}`);
     }
   }
 

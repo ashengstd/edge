@@ -12,6 +12,7 @@ import { configRules } from './templates/shared/rules';
 
 import { parseProxyUri } from './src/utils/proxy-parser';
 import { Subscription } from './src/types';
+import webUIHtml from './src/templates/web-ui';
 
 export default {
   async fetch(request: Request, env: any, ctx: any): Promise<Response> {
@@ -35,10 +36,11 @@ export default {
     }
 
     if (subscriptions.length === 0 && !searchParams.get('proxies')) {
-      return new Response(
-        'No subscriptions found. Usage: ?secret=YOUR_SECRET&Name1=URL1&proxies=YAML_PROXIES&type=stash',
-        { status: 400 }
-      );
+      return new Response(webUIHtml, {
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+        },
+      });
     }
 
     // Parse custom proxies

@@ -12,7 +12,7 @@ export function buildProxyUri(node: ProxyNode): string[] {
     const q = new URLSearchParams();
     if (p.sni) q.set('sni', p.sni);
     if (p.alpn) q.set('alpn', Array.isArray(p.alpn) ? p.alpn.join(',') : p.alpn);
-    if (p.insecure !== undefined) q.set('insecure', String(p.insecure));
+    if (p['skip-cert-verify'] || p.insecure) q.set('insecure', '1');
     const portRange = p.ports || (typeof p.port === 'string' && p.port.includes('-') ? p.port : '');
     if (portRange) q.set('mport', portRange);
     q.set('udp', 'true');
