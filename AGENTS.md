@@ -137,7 +137,8 @@ bun local-test.ts
    - 需要 DNS `nameserver-policy` 精确匹配（仅 Mihomo）
    - 需要与同类别其他域名路由到不同策略组
 3. **Mini 版额外原则：** 删除所有在 iOS 上不常用或已被 category 覆盖的 provider，宁可走底也不占内存
-4. **GeoIP 规则（`behavior: ipcidr`）必须配 `no-resolve`：** 让域名流量由域名规则处理，IP 流量才由 GeoIP 规则匹配。每个 GeoIP 规则紧跟对应的域名规则之后。
+4. **GeoIP 规则优先级**：优先使用 domain 类规则。GeoIP 规则（`behavior: ipcidr`）作为补充，必须配合 `no-resolve` 以防 DNS 回退。
+5. **单项还原原则**：尽可能使用 `category-*` 聚合集。如果某项服务（如 `telegram-ip`, `cn-ip`）没有对应的 category 版本，则保留其单项规则以确保覆盖完整性。
 
 ---
 
