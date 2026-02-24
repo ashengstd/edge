@@ -18,11 +18,18 @@ export default {
     const url = new URL(request.url);
     const searchParams = url.searchParams;
 
-    const isAssetRequest = url.pathname.startsWith('/_next') || url.pathname.endsWith('.html') || url.pathname.endsWith('.ico') || url.pathname.endsWith('.svg');
+    const isUIRequest = url.pathname === '/ui' || url.pathname.startsWith('/ui/') || url.pathname.startsWith('/_next/');
 
-    if (isAssetRequest) {
+    if (isUIRequest) {
       try {
-        if (env && env.ASSETS) return await env.ASSETS.fetch(request);
+        if (env && env.ASSETS) {
+          // Map /ui to /index.html if needed, or let ASSETS handle it
+          let targetUrl = request.url;
+          if (url.pathname === '/ui') {
+            targetUrl = new URL('/ui/', request.url).toString();
+          }
+          return await env.ASSETS.fetch(new Request(targetUrl, request));
+        }
       } catch (e) {}
     }
 
@@ -43,13 +50,7 @@ export default {
     }
 
     if (subscriptions.length === 0 && !searchParams.get('proxies')) {
-      try {
-        if (env && env.ASSETS) {
-          return await env.ASSETS.fetch(new Request(new URL('/', request.url).toString(), request));
-        }
-      } catch (e) {}
-      
-      return new Response('Edge Subscription API - Missing parameters. Add ?proxies=... or ?SubName=SubUrl', {
+      return new Response('Edge Subscription API - Missing parameters. Visit /ui for the interface. Add ?proxies=... or ?SubName=SubUrl', {
         headers: {
           'Content-Type': 'text/plain; charset=utf-8',
         },

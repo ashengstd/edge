@@ -23,10 +23,11 @@ Assembles the components and manages the global state:
 
 ## Integration with Worker
 
-The Web UI is designed to be exported as a static site (`next export`) and served by the Cloudflare Worker via `env.ASSETS`.
+The Web UI is exported as a static site and served by the Cloudflare Worker via `env.ASSETS` on the `/ui` path.
 
 - **Output Path**: `web-ui/out`
-- **Dynamic Configuration**: The generated URL reflects the parameters parsed by the Worker's `fetch` handler.
+- **Base Path**: The UI is configured with `basePath: '/ui'`, so all assets and links are relative to `/ui`.
+- **Dynamic Configuration**: The generated URL points to the root path (`/`) where the conversion API lives.
 
 ## Field Name Standardization
 

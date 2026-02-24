@@ -9,7 +9,7 @@
 支持两种客户端：
 - **Mihomo / Clash Meta**（桌面端）
 - **Stash**（iOS，有 Network Extension 内存限制）
-- **Web UI**（基于 Next.js 的图形界面）
+- **Web UI**（基于 Next.js 的图形界面，部署在 `/ui` 路径）
 
 更多 Web UI 详情见：[web-ui/AGENTS.md](file:///Users/didi/test/web-ui/AGENTS.md)
 
@@ -19,7 +19,9 @@
 
 ### `index.ts`
 
-Worker 主文件，处理所有 HTTP 请求。
+Worker 主文件，处理所有 HTTP 请求。会自动根据路径分流：
+- `/ui/*`：服务 Web UI 静态资源
+- 其他路径：作为订阅转换 API 处理
 
 **关键参数：**
 - `type`：`mihomo`（默认）/ `stash` / `stash-mini`

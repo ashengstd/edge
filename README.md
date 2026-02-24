@@ -49,7 +49,7 @@ https://your-worker.workers.dev/?type=stash-mini&secret=xxx&Airport1=https://sub
 ```
 
 ### 🌍 可视化 Web UI (Next.js)
-直接在流览器中访问部署好的 Worker 根目录（如 `https://your-worker.workers.dev/`），即可打开 **Edge Subscription Generator** 图形界面。您可以直接在页面中：
+直接在浏览器中访问部署好的 Worker 下的 `/ui` 目录（如 `https://your-worker.workers.dev/ui`），即可打开 **Edge Subscription Generator** 图形界面。您可以直接在页面中：
 1. 添减订阅源 URL。
 2. 使用智能表单（React Node Builder）通过协议模板动态拼接 `VLESS, VMess, TUIC, Hysteria2, Trojan, Shadowsocks, Wireguard` 等格式节点并防止语法错误。
 3. 一键生成支持各类客户端配置模板拼接的 Final URL，并自动复制入剪贴板。
