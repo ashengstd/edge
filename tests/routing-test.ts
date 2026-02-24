@@ -9,11 +9,16 @@ async function testRouting() {
     }
   };
 
-  console.log('--- Testing /ui routing ---');
+  console.log('--- Testing /ui (no slash) routing ---');
   const uiReq = new Request('http://localhost/ui');
   const uiRes = await worker.fetch(uiReq, env, {});
-  const uiText = await uiRes.text();
-  console.log(`Path: /ui -> Result: ${uiText}`);
+  console.log(`Path: /ui -> Status: ${uiRes.status}, Location: ${uiRes.headers.get('location')}`);
+
+  console.log('\n--- Testing /ui/ (with slash) routing ---');
+  const uiSlashReq = new Request('http://localhost/ui/');
+  const uiSlashRes = await worker.fetch(uiSlashReq, env, {});
+  const uiSlashText = await uiSlashRes.text();
+  console.log(`Path: /ui/ -> Result: ${uiSlashText}`);
 
   console.log('\n--- Testing /ui/index.html routing ---');
   const uiAssetsReq = new Request('http://localhost/ui/index.html');
