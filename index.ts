@@ -12,7 +12,6 @@ import { configRules } from './templates/shared/rules';
 
 import { parseProxyUri } from './src/utils/proxy-parser';
 import { Subscription } from './src/types';
-import webUIHtml from './src/templates/web-ui';
 
 export default {
   async fetch(request: Request, env: any, ctx: any): Promise<Response> {
@@ -36,9 +35,9 @@ export default {
     }
 
     if (subscriptions.length === 0 && !searchParams.get('proxies')) {
-      return new Response(webUIHtml, {
+      return new Response('Edge Subscription API - Missing parameters. Add ?proxies=... or ?SubName=SubUrl', {
         headers: {
-          'Content-Type': 'text/html; charset=utf-8',
+          'Content-Type': 'text/plain; charset=utf-8',
         },
       });
     }

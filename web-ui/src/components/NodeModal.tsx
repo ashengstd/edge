@@ -63,15 +63,31 @@ export default function NodeModal({ isOpen, onClose, onInject }: Props) {
     }
   }, [isOpen]);
 
-  // Optionally reset some fields when protocol changes
+  // Reset protocol-specific fields when protocol changes
   useEffect(() => {
-    // We could reset protocol-specific fields here, but for now
-    // resetting security to TLS and network to TCP is a good default
+    // Keep host, port, and name. Reset the rest
+    setUuid('');
+    setPassword('');
+    setSni('');
+    setEncryption('none');
+    setAlpn('h3');
+    setCongestion('bbr');
+    setObfs('none');
+    setObfsPassword('');
+    setPrivateKey('');
+    setPublicKey('');
+    setLocalIp('10.0.0.1/24');
+    setMtu('1420');
+    setCipher('aes-256-gcm');
+
     if (protocol === 'vless' || protocol === 'vmess' || protocol === 'trojan') {
       setSecurity('tls');
       setNetwork('tcp');
     } else if (protocol === 'hysteria2' || protocol === 'tuic') {
       setSecurity('tls'); // using 'none' for insecure in h2
+    } else if (protocol === 'wireguard' || protocol === 'ss') {
+      setSecurity('none');
+      setNetwork('tcp');
     }
   }, [protocol]);
 

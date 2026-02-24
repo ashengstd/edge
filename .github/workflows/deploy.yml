@@ -19,8 +19,14 @@ jobs:
         with:
           bun-version: latest
 
-      - name: Install dependencies
+      - name: Install root dependencies
         run: bun install
+
+      - name: Install web-ui dependencies
+        run: cd web-ui && bun install
+
+      - name: Build web-ui
+        run: cd web-ui && bun run build
 
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
