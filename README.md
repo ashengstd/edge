@@ -8,7 +8,7 @@
 - **自建节点**：支持在 `proxy.yaml` 中直接写 URI，自动解析为 Clash 格式
 - **三种配置模式**：Mihomo / Stash iOS / Stash iOS Mini（<50 MB）
 - **节点链（Relay）**：通过 `🏮 入口节点 → 🛫 出口节点` 实现多跳中转
-- **精细分流**：40+ 条 rule-set 按 AI / 流媒体 / 社交 / 开发工具等分组路由
+- **精细分流**：66 条 rule-set，按 AI / 流媒体 / 社交 / 开发工具 / 游戏 / 金融等分组路由
 
 ## 快速开始
 
@@ -58,9 +58,9 @@ https://your-worker.workers.dev/?type=stash-mini&secret=xxx&Airport1=https://sub
 
 | 模式 | Rule Providers | Proxy Groups | 适用场景 |
 |---|---|---|---|
-| `mihomo` | 42 | 24 | 桌面端 Mihomo / Clash Meta |
-| `stash` | 42 | 24 | iOS Stash（内存充足） |
-| `stash-mini` | **15** | **13** | iOS Stash（Network Extension <50 MB） |
+| `mihomo` | 66 | 26 | 桌面端 Mihomo / Clash Meta |
+| `stash` | 66 | 26 | iOS Stash（内存充足） |
+| `stash-mini` | **17** | **17** | iOS Stash（Network Extension <50 MB） |
 
 ### stash-mini 精简内容
 
@@ -70,7 +70,8 @@ https://your-worker.workers.dev/?type=stash-mini&secret=xxx&Airport1=https://sub
 - AI 子品牌（openai/anthropic/gemini 等，由 `category-ai-chat-!cn` 覆盖）
 - AI 编辑器（cursor/windsurf/trae/manus 等）
 - 开发细分（container/jetbrains/gitlab，由 `category-dev` 覆盖）
-- 生产力工具（dropbox/mega/protonmail/tutanota/slack/密码管理器）
+- 流媒体细分（netflix/disney/hbo/hulu/primevideo，由 `geolocation-!cn` 兜底）
+- 生产力工具（tutanota/密码管理器/远程控制）
 - 金融 / 加密货币 / 新闻 / 成人 / BT-PT / 测速 / NTP
 
 ## 项目结构
@@ -84,20 +85,20 @@ https://your-worker.workers.dev/?type=stash-mini&secret=xxx&Airport1=https://sub
 ├── proxy.yaml                        # 你的本地配置（gitignored）
 ├── templates/
 │   ├── shared/
-│   │   ├── rule-providers.ts         # 42 个 rule-providers（Mihomo & Stash 共用）
+│   │   ├── rule-providers.ts         # 66 个 rule-providers（Mihomo & Stash 共用）
 │   │   └── rules.ts                  # 路由规则
 │   ├── mihomo/
 │   │   ├── header.ts                 # Mihomo 专属头部配置
-│   │   ├── groups.ts                 # Mihomo proxy-groups
+│   │   ├── groups.ts                 # Mihomo proxy-groups（26 个）
 │   │   └── footer.ts                 # Mihomo DNS & sniffer
 │   └── stash/
 │       ├── header.ts                 # Stash 专属头部配置
-│       ├── groups.ts                 # Stash proxy-groups
+│       ├── groups.ts                 # Stash proxy-groups（26 个）
 │       ├── footer.ts                 # Stash DNS 配置
 │       └── mini/
-│           ├── rule-providers-mini.ts # 15 个 rule-providers
+│           ├── rule-providers-mini.ts # 17 个 rule-providers
 │           ├── rules-mini.ts          # 精简路由规则
-│           └── groups-mini.ts         # 13 个 proxy-groups
+│           └── groups-mini.ts         # 17 个 proxy-groups
 └── wrangler.toml                     # Cloudflare Workers 配置
 ```
 

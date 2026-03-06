@@ -35,29 +35,21 @@ export const configRuleProviders = `rule-providers:
     path: ./ruleset/advertising.mrs
     interval: 86400
 
-  # Windows 遥测 & 追踪
-  win-spy:
-    type: http
-    format: mrs
-    behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/win-spy.mrs"
-    path: ./ruleset/win-spy.mrs
-    interval: 86400
-
-  win-extra:
-    type: http
-    format: mrs
-    behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/win-extra.mrs"
-    path: ./ruleset/win-extra.mrs
-    interval: 86400
-
   win-update:
     type: http
     format: mrs
     behavior: domain
     url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/win-update.mrs"
     path: ./ruleset/win-update.mrs
+    interval: 86400
+
+  # 杀毒软件更新域名（建议直连）
+  category-antivirus:
+    type: http
+    format: mrs
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-antivirus.mrs"
+    path: ./ruleset/category-antivirus.mrs
     interval: 86400
 
   # -- AI 服务 (DNS policy 需独立集，路由由 category 统一处理) --
@@ -159,6 +151,7 @@ export const configRuleProviders = `rule-providers:
     interval: 86400
 
   # -- 流媒体 --------------------------------------------------
+  # youtube 独立集（不在 category-entertainment@!cn 中）
   youtube:
     type: http
     format: mrs
@@ -167,7 +160,48 @@ export const configRuleProviders = `rule-providers:
     path: ./ruleset/youtube.mrs
     interval: 86400
 
-  # category-entertainment@!cn 覆盖 twitch/biliintl/category-media 等境外娱乐
+  # 主流流媒体平台（无聚合 category，独立集列出）
+  netflix:
+    type: http
+    format: mrs
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/netflix.mrs"
+    path: ./ruleset/netflix.mrs
+    interval: 86400
+
+  disney:
+    type: http
+    format: mrs
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/disney.mrs"
+    path: ./ruleset/disney.mrs
+    interval: 86400
+
+  hbo:
+    type: http
+    format: mrs
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/hbo.mrs"
+    path: ./ruleset/hbo.mrs
+    interval: 86400
+
+  hulu:
+    type: http
+    format: mrs
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/hulu.mrs"
+    path: ./ruleset/hulu.mrs
+    interval: 86400
+
+  primevideo:
+    type: http
+    format: mrs
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/primevideo.mrs"
+    path: ./ruleset/primevideo.mrs
+    interval: 86400
+
+  # category-entertainment@!cn 主要覆盖 TikTok/WebNovel；netflix/spotify/twitch/biliintl 等境外娱乐
   category-entertainment@!cn:
     type: http
     format: mrs
@@ -203,20 +237,13 @@ export const configRuleProviders = `rule-providers:
     interval: 86400
 
   # -- 微软服务 ------------------------------------------------
+  # microsoft 已包含 OneDrive / Office / Azure / Teams 等全部微软域名
   microsoft:
     type: http
     format: mrs
     behavior: domain
     url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/microsoft.mrs"
     path: ./ruleset/microsoft.mrs
-    interval: 86400
-
-  onedrive:
-    type: http
-    format: mrs
-    behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/onedrive.mrs"
-    path: ./ruleset/onedrive.mrs
     interval: 86400
 
   # -- 开发工具 ------------------------------------------------
@@ -310,6 +337,15 @@ export const configRuleProviders = `rule-providers:
     path: ./ruleset/category-games-!cn.mrs
     interval: 86400
 
+  # category-game-platforms-download 包含 EA/Riot/Bethesda 等各大平台 CDN 下载域名
+  category-game-platforms-download:
+    type: http
+    format: mrs
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-game-platforms-download.mrs"
+    path: ./ruleset/category-game-platforms-download.mrs
+    interval: 86400
+
   # -- 教育资源 ------------------------------------------------
   category-scholar-!cn:
     type: http
@@ -320,6 +356,15 @@ export const configRuleProviders = `rule-providers:
     interval: 86400
 
   # -- 生产力工具 -----------------------------------------------
+  # category-remote-control 覆盖 TeamViewer/AnyDesk/RustDesk 等
+  category-remote-control:
+    type: http
+    format: mrs
+    behavior: domain
+    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-remote-control.mrs"
+    path: ./ruleset/category-remote-control.mrs
+    interval: 86400
+
   # category-password-management 覆盖 1password/bitwarden/lastpass 等
   category-password-management:
     type: http
@@ -327,14 +372,6 @@ export const configRuleProviders = `rule-providers:
     behavior: domain
     url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-password-management.mrs"
     path: ./ruleset/category-password-management.mrs
-    interval: 86400
-
-  slack:
-    type: http
-    format: mrs
-    behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/slack.mrs"
-    path: ./ruleset/slack.mrs
     interval: 86400
 
   dropbox:
@@ -351,14 +388,6 @@ export const configRuleProviders = `rule-providers:
     behavior: domain
     url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/mega.mrs"
     path: ./ruleset/mega.mrs
-    interval: 86400
-
-  protonmail:
-    type: http
-    format: mrs
-    behavior: domain
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/protonmail.mrs"
-    path: ./ruleset/protonmail.mrs
     interval: 86400
 
   tutanota:
@@ -520,7 +549,7 @@ export const configRuleProviders = `rule-providers:
     path: ./ruleset/telegram-ip.mrs
     interval: 86400
 
-  # Netflix CDN IP 段（流媒体解锁节点需要精确匹配）
+  # Netflix CDN IP 段（流媒体解锁节点，域名规则覆盖不到的直连 IP）
   netflix-ip:
     type: http
     format: mrs

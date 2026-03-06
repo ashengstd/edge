@@ -43,6 +43,7 @@ export const configStashMiniRuleProviders = `rule-providers:
     interval: 86400
 
   # -- 流媒体 -------------------------------------------------
+  # youtube 独立集（不在 category-entertainment@!cn 的 .mrs 中）
   youtube:
     type: http
     format: mrs
@@ -51,7 +52,7 @@ export const configStashMiniRuleProviders = `rule-providers:
     path: ./ruleset/youtube.mrs
     interval: 86400
 
-  # category-entertainment@!cn 覆盖 netflix/spotify/twitch/biliintl 等
+  # category-entertainment@!cn 主要覆盖 TikTok/WebNovel；netflix/spotify/twitch/biliintl 等
   category-entertainment@!cn:
     type: http
     format: mrs

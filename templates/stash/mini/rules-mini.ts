@@ -1,6 +1,6 @@
-// Stash iOS Mini routing rules
+// Stash iOS Mini routing rules.
 // Ordered from most-specific to least-specific.
-// Matches the 15 providers in rule-providers-mini.ts.
+// Matches the 17 providers in rule-providers-mini.ts.
 
 export const configStashMiniRules = `rules:
   # 广告拦截
@@ -42,7 +42,7 @@ export const configStashMiniRules = `rules:
   # 油管
   - RULE-SET,youtube,📹 油管视频
 
-  # 流媒体（netflix/spotify/twitch/biliintl 等）
+  # 流媒体（category-entertainment@!cn 主要覆盖 TikTok；netflix/spotify/twitch/biliintl 等）
   - RULE-SET,category-entertainment@!cn,🎬 流媒体
 
   # 即时通讯（telegram/signal/whatsapp 等）

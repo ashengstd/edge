@@ -140,6 +140,10 @@ export const configMihomoGroupsMid = `  - name: 🛑 广告拦截
     include-all-proxies: true
     use: [{{PROVIDERS_LIST}}]
 
+  - name: 🧲 BT/PT
+    type: select
+    proxies: [🐟 漏网之鱼, DIRECT, REJECT, 🚀 节点选择]
+
   - name: ☁️ 云服务
     type: select
     proxies: [🚀 节点选择, DIRECT, REJECT, {{AUTO_GROUPS_LIST}}]
