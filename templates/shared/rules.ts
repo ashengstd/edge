@@ -32,7 +32,7 @@ export const configRules = `rules:
   - RULE-SET,category-doh,🛡️ 隐私防护
 
   # 广告拦截
-  - RULE-SET,advertising,🛡️ 隐私防护
+  - RULE-SET,advertising,🛑 广告拦截
 
   # 国内直连
   - RULE-SET,geolocation-cn,🔒 国内服务
@@ -60,7 +60,7 @@ export const configRules = `rules:
   - RULE-SET,google-ip,🔍 谷歌服务,no-resolve
 
   # 苹果视频优先（在 apple 整体前）
-  - RULE-SET,appletv,🍎 苹果视频
+  - RULE-SET,appletv,🎬 苹果视频
   - RULE-SET,apple,🍏 苹果服务
 
   # 微软服务（microsoft 已包含 OneDrive / Office / Azure 等）

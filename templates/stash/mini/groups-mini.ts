@@ -19,7 +19,7 @@ export const configStashMiniGroupsHeader = `proxy-groups:
     proxies: [DIRECT, {{AUTO_GROUPS_LIST}}, {{PROVIDERS_LIST}}, {{SELF_HOSTED_GROUP}}]
 `;
 
-export const configStashMiniGroupsMid = `  - name: 🛡️ 广告拦截
+export const configStashMiniGroupsMid = `  - name: 🛑 广告拦截
     type: select
     proxies: [REJECT, DIRECT, 🚀 节点选择]
 

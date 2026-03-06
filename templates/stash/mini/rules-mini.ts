@@ -4,7 +4,7 @@
 
 export const configStashMiniRules = `rules:
   # 广告拦截
-  - RULE-SET,advertising,🛡️ 广告拦截
+  - RULE-SET,advertising,🛑 广告拦截
 
   # 安全拒绝（STUN/WebRTC 端口，防 IP 泄漏）
   - DST-PORT,3478,REJECT
