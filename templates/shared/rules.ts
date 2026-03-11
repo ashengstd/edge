@@ -28,6 +28,7 @@ export const configRules = `rules:
   - RULE-SET,private,🏠 私有网络,no-resolve
 
   # 广告拦截
+  - RULE-SET,adblockfilters,🛑 广告拦截
   - RULE-SET,advertising,🛑 广告拦截
 
   # 国内直连

@@ -9,6 +9,14 @@
 
 export const configRuleProviders = `rule-providers:
   # -- 隐私 & 广告拦截 -----------------------------------------
+  adblockfilters:
+    type: http
+    format: mrs
+    behavior: domain
+    url: "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockmihomo.mrs"
+    path: ./ruleset/adblockfilters.mrs
+    interval: 28800
+
   advertising:
     type: http
     format: mrs
