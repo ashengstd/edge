@@ -19,26 +19,9 @@ dns:
   fake-ip-range: 198.18.0.1/16
   default-nameserver:
     - 223.5.5.5
-    - 119.29.29.29
   nameserver:
-    - https://dns.alidns.com/dns-query
     - 223.5.5.5
-  nameserver-policy:
-    "geosite:category-ai-chat-!cn": "https://8.8.8.8/dns-query"
-    "geosite:geolocation-!cn": "https://1.1.1.1/dns-query"
-    "geosite:geolocation-cn": "https://dns.alidns.com/dns-query"
-    "geosite:cn": "https://dns.alidns.com/dns-query"
-  fallback:
-    - 8.8.8.8
-    - https://8.8.8.8/dns-query
-  fallback-filter:
-    geoip: true
-    ipcidr: [240.0.0.0/4, 0.0.0.0/32, 127.0.0.1/32]
-    domain:
-      - +.google.com
-      - +.facebook.com
-      - +.twitter.com
-      - +.youtube.com
+    - https://doh.pub/dns-query
   fake-ip-filter:
     - "*.lan"
     - "*.localdomain"
